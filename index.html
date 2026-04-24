@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programlama Dilleri – Vize Çalışma Rehberi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a1a;--card:#12122a;--accent:#6366f1;--accent2:#a78bfa;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--text:#e2e8f0;--muted:#94a3b8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+header{background:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95);padding:3rem 2rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(99,102,241,.15) 0%,transparent 60%);animation:pulse 4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+header h1{font-size:2.8rem;font-weight:800;background:linear-gradient(90deg,#a78bfa,#818cf8,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;}
+header p{color:var(--muted);margin-top:.5rem;font-size:1.1rem;position:relative;}
+nav{background:rgba(18,18,42,.95);backdrop-filter:blur(10px);padding:.8rem 1rem;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(99,102,241,.3);display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;}
+nav a{color:var(--accent2);text-decoration:none;padding:.3rem .8rem;border-radius:999px;font-size:.85rem;font-weight:600;border:1px solid rgba(167,139,250,.3);transition:all .2s;}
+nav a:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.container{max-width:960px;margin:0 auto;padding:2rem 1rem;}
+section{background:var(--card);border-radius:16px;margin-bottom:2rem;padding:2rem;border:1px solid rgba(99,102,241,.2);transition:border-color .3s;}
+section:hover{border-color:rgba(99,102,241,.5);}
+h2{font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+h2 .num{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+h3{color:var(--accent2);font-size:1.05rem;margin:1.2rem 0 .5rem;font-weight:600;}
+ul{margin-left:1.2rem;line-height:1.8;}
+li{margin-bottom:.4rem;color:var(--text);}
+li strong{color:#c4b5fd;}
+.badge{display:inline-block;padding:.15rem .6rem;border-radius:999px;font-size:.75rem;font-weight:700;margin-left:.4rem;}
+.badge-tip{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3);}
+.badge-warn{background:rgba(245,158,11,.15);color:var(--yellow);border:1px solid rgba(245,158,11,.3);}
+.badge-hot{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);}
+.box{background:rgba(99,102,241,.1);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:.8rem 1rem;margin:.8rem 0;}
+.box-green{background:rgba(34,197,94,.08);border-left-color:var(--green);}
+.box-yellow{background:rgba(245,158,11,.08);border-left-color:var(--yellow);}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0;}
+.compare>div{background:rgba(255,255,255,.04);border-radius:8px;padding:.8rem 1rem;}
+.compare>div h4{font-size:.85rem;color:var(--muted);margin-bottom:.4rem;}
+table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.9rem;}
+th{background:rgba(99,102,241,.3);padding:.6rem .8rem;text-align:left;}
+td{padding:.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.06);}
+tr:hover td{background:rgba(255,255,255,.03);}
+.quiz-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:600;margin-top:.5rem;transition:opacity .2s;}
+.quiz-btn:hover{opacity:.85;}
+.quiz-answer{display:none;margin-top:.6rem;padding:.6rem 1rem;background:rgba(34,197,94,.1);border-radius:8px;border:1px solid rgba(34,197,94,.3);color:var(--green);}
+footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border-top:1px solid rgba(255,255,255,.08);margin-top:2rem;}
+</style>
+</head>
+<body>
+<header>
+<h1>📚 Programlama Dilleri</h1>
+<p>Vize Sınavı Kapsamlı Çalışma Rehberi &nbsp;|&nbsp; BTÜ Bilgisayar Mühendisliği</p>
+</header>
+<nav>
+<a href="#k1">1-Giriş</a>
+<a href="#k2">2-Sözdizimi</a>
+<a href="#k3">3-Bağlama</a>
+<a href="#k4">4-Alt Programlar</a>
+<a href="#k5">5-Kapsam</a>
+<a href="#k6">6-Veri Tipleri</a>
+<a href="#k7">7-İfadeler</a>
+<a href="#k8">8-Kontrol Akışı</a>
+<a href="#k9">9-Döngüler</a>
+<a href="#k10">10-Hesap Kuramı</a>
+<a href="#k11">11-Sorular</a>
+</nav>
+
+<div class="container">
+
+<!-- KONU 1 -->
+<section id="k1">
+<h2><span class="num">1</span>Programlama Dillerine Giriş</h2>
+
+<h3>🎯 Neden Programlama Dillerini Öğreniriz?</h3>
+<ul>
+<li>Farklı dillerin güçlü/zayıf yönlerini anlamak</li>
+<li>Yeni dilleri daha kolay öğrenmek</li>
+<li>Algoritma ifade kabiliyeti artar</li>
+<li>Dil tasarımı ve uygulaması için temel oluşturur</li>
+</ul>
+
+<h3>📊 Dil Tasarımı Kriterleri</h3>
+<div class="compare">
+<div><h4>✅ Okunabilirlik (Readability)</h4>
+<ul><li>Açık, anlaşılır sözdizimi</li><li>Minimal anahtar kelimeler</li><li>Yapısal programlama desteği</li></ul></div>
+<div><h4>✍️ Yazılabilirlik (Writability)</h4>
+<ul><li>Soyutlama desteği</li><li>İfade gücü</li><li>Tip kontrolü esnekliği</li></ul></div>
+</div>
+<div class="compare">
+<div><h4>🛡️ Güvenilirlik (Reliability)</h4>
+<ul><li>Tip denetimi</li><li>İstisna yönetimi</li><li>Aliasing kontrolü</li></ul></div>
+<div><h4>⚙️ Maliyet (Cost)</h4>
+<ul><li>Eğitim maliyeti</li><li>Yazım/çalıştırma maliyeti</li><li>Bakım maliyeti</li></ul></div>
+</div>
+
+<h3>🏛️ Önemli Programlama Dilleri Tarihi</h3>
+<table>
+<tr><th>Yıl</th><th>Dil</th><th>Önemi</th></tr>
+<tr><td>1957</td><td>Fortran</td><td>İlk yüksek seviyeli dil, bilimsel hesaplama</td></tr>
+<tr><td>1958</td><td>Lisp</td><td>Fonksiyonel programlama, sembolik hesaplama</td></tr>
+<tr><td>1960</td><td>COBOL</td><td>İş dünyası uygulamaları</td></tr>
+<tr><td>1960</td><td>ALGOL 60</td><td>Blok yapısı, rekursif fonksiyon, BNF grameri</td></tr>
+<tr><td>1972</td><td>C</td><td>Sistem programlama, taşınabilirlik</td></tr>
+<tr><td>1983</td><td>C++</td><td>Nesne yönelimli, C uyumlu</td></tr>
+<tr><td>1995</td><td>Java</td><td>Platform bağımsızlık, JVM</td></tr>
+<tr><td>1991</td><td>Python</td><td>Sadelik, okunabilirlik</td></tr>
+</table>
+
+<h3>⚙️ Derleme Süreci</h3>
+<div class="box">
+<strong>Kaynak Kod → Lexer (Sözcüksel Analiz) → Parser (Sözdizimsel Analiz) → Semantik Analiz → Kod Üretimi → Çalıştırılabilir</strong>
+</div>
+<ul>
+<li><strong>Lexer/Scanner:</strong> Kaynak kodu token'lara böler (anahtar kelimeler, tanımlayıcılar, sabitler)</li>
+<li><strong>Parser:</strong> Token dizisini gramer kurallarına göre ağaca dönüştürür (Parse Tree / AST)</li>
+<li><strong>Semantik Analiz:</strong> Tip kontrolü, kapsam kontrolü</li>
+<li><strong>Kod Üretimi:</strong> Hedef dil/makine kodu üretilir</li>
+</ul>
+
+<div class="box box-yellow">
+<strong>⚠️ Sınav Sorusu:</strong> Compiler vs Interpreter farkı? Compiler tüm kodu önceden çevirir. Interpreter satır satır çalışır. JVM ikisini birleştirir (bytecode + JIT).
+</div>
+</section>
+
+<!-- KONU 2 -->
+<section id="k2">
+<h2><span class="num">2</span>Sözdizimi – BNF, EBNF ve Parsing</h2>
+
+<h3>📐 BNF (Backus-Naur Form)</h3>
+<ul>
+<li>Programlama dillerinin sözdizimini tanımlamak için kullanılan biçimsel notasyon</li>
+<li><strong>Terminal:</strong> Değiştirilemez semboller (gerçek kelimeler/karakterler)</li>
+<li><strong>Non-terminal:</strong> Başka kurallara genişletilebilir semboller (&lt;expr&gt;, &lt;stmt&gt;)</li>
+<li><strong>Üretim Kuralı:</strong> &lt;A&gt; ::= &lt;B&gt; | &lt;C&gt; (A ya B ya da C olabilir)</li>
+</ul>
+
+<div class="box">
+<strong>BNF Örnek:</strong><br>
+&lt;expr&gt; ::= &lt;expr&gt; + &lt;term&gt; | &lt;term&gt;<br>
+&lt;term&gt; ::= &lt;term&gt; * &lt;factor&gt; | &lt;factor&gt;<br>
+&lt;factor&gt; ::= ( &lt;expr&gt; ) | id | number
+</div>
+
+<h3>📐 EBNF (Extended BNF)</h3>
+<ul>
+<li><strong>[ ]</strong> → İsteğe bağlı (0 veya 1 kez)</li>
+<li><strong>{ }</strong> → 0 veya daha fazla kez tekrar</li>
+<li><strong>( )</strong> → Gruplama</li>
+<li>BNF'e göre daha okunabilir ama eşdeğer güce sahip</li>
+</ul>
+
+<h3>🌲 Parse Tree vs AST</h3>
+<div class="compare">
+<div><h4>Parse Tree (Ayrıştırma Ağacı)</h4>
+<ul><li>Tüm gramer sembolleri dahil</li><li>Her terminal ve non-terminal var</li><li>Çok detaylı</li></ul></div>
+<div><h4>AST (Abstract Syntax Tree)</h4>
+<ul><li>Gereksiz detaylar ayıklanmış</li><li>Sadece anlamsal yapı</li><li>Derleyicilerde kullanılır</li></ul></div>
+</div>
+
+<h3>🔍 Parsing Teknikleri</h3>
+<table>
+<tr><th>Teknik</th><th>Yön</th><th>Açıklama</th></tr>
+<tr><td>Top-Down (LL)</td><td>↓ Kök→Yaprak</td><td>Başlangıç sembolünden türetme, recursive descent</td></tr>
+<tr><td>Bottom-Up (LR)</td><td>↑ Yaprak→Kök</td><td>Shift-reduce, daha güçlü</td></tr>
+</table>
+
+<h3>⚠️ Ambiguity (Belirsizlik)</h3>
+<div class="box box-yellow">
+Bir gramer, aynı string için birden fazla parse tree üretiyorsa <strong>belirsiz (ambiguous)</strong>tir. Belirsizlik önemli çünkü hangi anlama geleceği belli değil.
+<br><br>
+<strong>Çözüm:</strong> Gramer yeniden yazılır VEYA öncelik/ilişkisellik kuralları eklenir.
+</div>
+
+<h3>🔢 Operatör Önceliği ve İlişkisellik</h3>
+<ul>
+<li><strong>Precedence (Öncelik):</strong> Hangi operatör önce değerlendirilir? (* önce +)</li>
+<li><strong>Associativity (İlişkisellik):</strong> Aynı öncelikteki operatörler hangi yönden? Sol ilişkili: a-b+c → (a-b)+c</li>
+<li><strong>Sağ ilişkili örnek:</strong> 2**3**2 → 2**(3**2) = 512</li>
+</ul>
+
+<div class="box box-green">
+<strong>✅ Hatırlatma:</strong> ALGOL 60 dili, BNF notasyonunu ilk kullanan dildir. John Backus ve Peter Naur tarafından geliştirilmiştir.
+</div>
+</section>
+
+<!-- KONU 3 -->
+<section id="k3">
+<h2><span class="num">3</span>Bağlama (Binding) ve Yaşam Süresi</h2>
+
+<h3>🔗 Binding Nedir?</h3>
+<div class="box">
+Bir ismin (değişken, fonksiyon) bir özelliğe (tip, değer, adres) bağlanmasıdır. <strong>Ne zaman bağlandığı</strong> çok önemlidir.
+</div>
+
+<h3>⏱️ Binding Zamanları</h3>
+<table>
+<tr><th>Zaman</th><th>Ne Zaman?</th><th>Örnek</th></tr>
+<tr><td><strong>Dil tasarım zamanı</strong></td><td>Dil tasarlanırken</td><td>+, * operatörlerinin anlamı</td></tr>
+<tr><td><strong>Derleme zamanı</strong></td><td>Derleme sırasında</td><td>C'deki int tipi → 4 byte</td></tr>
+<tr><td><strong>Bağlama zamanı</strong></td><td>Link aşamasında</td><td>Kütüphane fonksiyonları</td></tr>
+<tr><td><strong>Yükleme zamanı</strong></td><td>Program belleğe yüklenirken</td><td>Global değişken adresi</td></tr>
+<tr><td><strong>Çalışma zamanı</strong></td><td>Program çalışırken</td><td>Dinamik değişkenler</td></tr>
+</table>
+
+<div class="compare">
+<div><h4>📌 Statik Bağlama</h4>
+<ul><li>Çalışma zamanından önce bağlanır</li><li>Değişmez</li><li>Daha hızlı, güvenli</li><li>Örnek: C'de int x = 5;</li></ul></div>
+<div><h4>🔄 Dinamik Bağlama</h4>
+<ul><li>Çalışma zamanında bağlanır</li><li>Değişebilir</li><li>Daha esnek ama yavaş</li><li>Örnek: Python'da x = 5</li></ul></div>
+</div>
+
+<h3>📦 Değişken Özellikleri (5 Temel)</h3>
+<ul>
+<li><strong>1. İsim (Name):</strong> Değişkene verilen etiket</li>
+<li><strong>2. Adres (Address/l-value):</strong> Bellekteki konumu</li>
+<li><strong>3. Değer (Value/r-value):</strong> İçerdiği veri</li>
+<li><strong>4. Tip (Type):</strong> Değerin türü ve işlem kuralları</li>
+<li><strong>5. Yaşam Süresi (Lifetime):</strong> Bellekte var olduğu süre</li>
+</ul>
+
+<h3>🕐 Değişken Yaşam Süreleri (Storage Classes)</h3>
+<table>
+<tr><th>Tür</th><th>Ne Zaman Oluşur?</th><th>Ne Zaman Yok Olur?</th><th>Örnek</th></tr>
+<tr><td>Statik</td><td>Program başında</td><td>Program biter</td><td>C static değişken</td></tr>
+<tr><td>Stack-Dynamic</td><td>Fonksiyon çağrıldığında</td><td>Fonksiyon biter</td><td>Local değişkenler</td></tr>
+<tr><td>Heap-Dynamic (Explicit)</td><td>malloc/new ile</td><td>free/delete ile</td><td>C: malloc, C++: new</td></tr>
+<tr><td>Heap-Dynamic (Implicit)</td><td>Atama ile</td><td>Garbage collector</td><td>Java, Python nesneleri</td></tr>
+</table>
+
+<div class="box box-yellow">
+<strong>⚠️ Sınav İpucu:</strong> Aliasing = Aynı bellek adresine birden fazla ismin bağlı olması. Güvenilirliği düşürür çünkü bir isimden yapılan değişiklik diğerini de etkiler.
+</div>
+</section>
+
+
+<!-- KONU 4 -->
+<section id="k4">
+<h2><span class='num'>4</span>Alt Programlar (Subprograms)</h2>
+
+<h3>Temel Kavramlar</h3>
+<ul>
+<li><strong>Fonksiyon:</strong> Değer döndürür</li>
+<li><strong>Prosedür/Void:</strong> Değer döndürmez, yan etki üretir</li>
+<li><strong>Formal Parameter:</strong> Tanımda kullanılan parametre ismi</li>
+<li><strong>Actual Parameter (Argument):</strong> Çağrıda gönderilen gerçek değer</li>
+</ul>
+
+<h3>Parametre Geçiş Yöntemleri</h3>
+<table>
+<tr><th>Yöntem</th><th>Nasıl Çalışır</th><th>Diller</th></tr>
+<tr><td><strong>Pass by Value</strong></td><td>Değerin kopyası geçilir. Orijinal değişmez.</td><td>C (default), Java (primitives)</td></tr>
+<tr><td><strong>Pass by Reference</strong></td><td>Değişkenin adresi geçilir. Orijinal değişebilir.</td><td>C++ (&), Fortran</td></tr>
+<tr><td><strong>Pass by Value-Result</strong></td><td>Giriş kopyalanır, çıkışta geri yazılır.</td><td>Ada (in out)</td></tr>
+<tr><td><strong>Pass by Name</strong></td><td>İfade çağrı anında değerlendirilir (lazy).</td><td>Algol 60</td></tr>
+</table>
+
+<div class='box box-yellow'>
+<strong>Sınav İpucu:</strong> Pass by Value vs Reference farkı!<br>
+void f(int x){x=10;} → By Value: orijinal DEGISMEZ<br>
+void f(int &x){x=10;} → By Reference: orijinal DEGISIR
+</div>
+
+<h3>Closure (Kapatma)</h3>
+<div class='box'>
+Bir fonksiyonun, tanımlandığı ortamdaki (lexical scope) değişkenlere erişimi korunur.
+Fonksiyon başka bir yerde çağrılsa bile o değişkenlere ulaşabilir.
+Python, JavaScript, F# closure destekler. C desteklemez.
+</div>
+
+<h3>Coroutine</h3>
+<ul>
+<li>Normal fonksiyonlar: Çağrılır, biter, geri döner</li>
+<li>Coroutine: Birden fazla giriş/çıkış noktası var, state korunur</li>
+<li>yield ile askıya alınır, resume ile devam eder</li>
+<li>Python generator fonksiyonları coroutine örneğidir</li>
+</ul>
+
+<h3>Activation Record (Çağrı Kaydı)</h3>
+<ul>
+<li>Her fonksiyon çağrısında bir Activation Record (AR) stack üzerinde oluşturulur</li>
+<li>AR içeriği: yerel değişkenler, parametreler, dönüş adresi, dynamic link, static link</li>
+<li><strong>Dynamic Link:</strong> Çağıran fonksiyonun AR'ına işaret eder</li>
+<li><strong>Static Link:</strong> Statik ebeveyn fonksiyonun AR'ına işaret eder (lexical scope)</li>
+</ul>
+</section>
+
+<!-- KONU 5 -->
+<section id="k5">
+<h2><span class='num'>5</span>Kapsam (Scope) ve Görünürlük</h2>
+
+<h3>Kapsam Nedir?</h3>
+<div class='box'>
+Bir değişkenin programın hangi bölümlerinden görülebileceğini (erişilebileceğini) belirler.
+</div>
+
+<h3>Statik Kapsam (Lexical Scope)</h3>
+<ul>
+<li>Kapsam, kaynak kodun yapısına göre derleme zamanında belirlenir</li>
+<li>C, Java, Python, C++ bu yöntemi kullanır</li>
+<li>İç blok, dış bloktaki değişkeni görebilir</li>
+</ul>
+
+<h3>Dinamik Kapsam (Dynamic Scope)</h3>
+<ul>
+<li>Kapsam, çalışma zamanındaki çağrı zincirine göre belirlenir</li>
+<li>Hangi fonksiyon çağırdıysa, onun değişkenleri erişilebilir olur</li>
+<li>Lisp (eski), Perl dinamik scope kullanır</li>
+<li>Hata bulmayı zorlaştırır</li>
+</ul>
+
+<div class='compare'>
+<div><h4>Statik Scope Örneği</h4>
+x = 10 (global)<br>
+def f(): x görülür → 10<br>
+def g(): x=20; f() → f hala 10 görür</div>
+<div><h4>Dinamik Scope Örneği</h4>
+x = 10 (global)<br>
+def f(): x görülür<br>
+def g(): x=20; f() → f 20 görür!</div>
+</div>
+
+<h3>Deep vs Shallow Binding</h3>
+<table>
+<tr><th>Tür</th><th>Ne Zaman Belirlenir?</th><th>Ne Demek?</th></tr>
+<tr><td><strong>Deep Binding</strong></td><td>Closure oluşturulduğunda (tanımlama anında)</td><td>Fonksiyon kendi ortamını taşır</td></tr>
+<tr><td><strong>Shallow Binding</strong></td><td>Çağrı anında aktif ortam</td><td>Dinamik scope ile çalışır</td></tr>
+</table>
+
+<h3>Garbage Collection</h3>
+<table>
+<tr><th>Yöntem</th><th>Nasıl Çalışır</th><th>Problem</th></tr>
+<tr><td>Reference Counting</td><td>Referans sayısı 0 olunca sil</td><td>Döngüsel referansları çözemez</td></tr>
+<tr><td>Mark-and-Sweep</td><td>Erişilemeyen nesneleri işaretle, sil</td><td>Program anlık duraklar</td></tr>
+</table>
+</section>
+
+<!-- KONU 6 -->
+<section id="k6">
+<h2><span class='num'>6</span>Veri Tipleri ve Tip Denetimi</h2>
+
+<h3>Temel Veri Tipleri</h3>
+<ul>
+<li><strong>Integer:</strong> Tam sayı. C: int(4B), short(2B), long(8B)</li>
+<li><strong>Float:</strong> IEEE 754. float(4B), double(8B)</li>
+<li><strong>Boolean:</strong> true/false. C'de yoktu: 0=false, sıfır-dışı=true</li>
+<li><strong>Char:</strong> ASCII veya Unicode</li>
+<li><strong>String:</strong> Java: immutable (değiştirilemez)</li>
+</ul>
+
+<h3>Yapısal Tipler</h3>
+<ul>
+<li><strong>Array:</strong> Aynı tipte elemanlar. Statik veya dinamik boyut</li>
+<li><strong>Record/Struct:</strong> Farklı tipte alanlar. Ada: record, C: struct</li>
+<li><strong>Tuple:</strong> Sıralı, sabit sayıda eleman. Python: (1, "a", 3.14)</li>
+<li><strong>Union:</strong> Aynı bellekte farklı tipler. C: union</li>
+<li><strong>Discriminated Union:</strong> Hangi tip aktif bilgisi de tutulur (güvenli)</li>
+</ul>
+
+<h3>Pointer Problemleri</h3>
+<ul>
+<li><strong>Dangling Pointer:</strong> Serbest bırakılmış belleği gösteren pointer → HATA KAYNAĞI</li>
+<li><strong>Memory Leak:</strong> Ayrılan bellek hiç serbest bırakılmamış → KAYNAK İSRAFI</li>
+</ul>
+
+<h3>Tip Denetimi</h3>
+<div class='compare'>
+<div><h4>Statik Tip Denetimi</h4>
+Derleme zamanında kontrol.<br>
+Hızlı çalışma. C, Java, C++</div>
+<div><h4>Dinamik Tip Denetimi</h4>
+Çalışma zamanında kontrol.<br>
+Esneklik. Python, JavaScript, Ruby</div>
+</div>
+
+<div class='box'>
+<strong>Güçlü Tip Denetimi (Strong Typing):</strong> Tüm tip hatalarının tespit garantisi.<br>
+Java ve Ada: Güçlü tipli. C/C++: Tam değil (union, pointer casting sorun çıkarır).
+</div>
+
+<h3>Tip Uyumluluğu ve Eşdeğerliği</h3>
+<table>
+<tr><th>Kavram</th><th>Açıklama</th></tr>
+<tr><td>Compatibility</td><td>Coercion ile kullanılabilir (esnek)</td></tr>
+<tr><td>Equivalence</td><td>Coercion olmadan değiştirilebilir (katı)</td></tr>
+<tr><td>Name Equivalence</td><td>Aynı isimle tanımlı ise eşdeğer (çok katı)</td></tr>
+<tr><td>Structure Equivalence</td><td>Yapıları aynıysa eşdeğer (esnek ama riskli)</td></tr>
+</table>
+
+<h3>Tür Dönüşümleri</h3>
+<ul>
+<li><strong>Widening:</strong> int → float. Güvenli, veri kaybı yok</li>
+<li><strong>Narrowing:</strong> double → int. VERİ KAYBI OLABİLİR!</li>
+<li><strong>Coercion:</strong> Derleyicinin otomatik yaptığı örtük dönüşüm</li>
+<li><strong>Explicit Cast:</strong> (int)x — programcı tarafından açıkça yapılır</li>
+</ul>
+</section>
+
+<!-- KONU 7 -->
+<section id="k7">
+<h2><span class='num'>7</span>İfadeler, Operatörler ve Atama</h2>
+
+<h3>Aritmetik İfadeler</h3>
+<ul>
+<li>Bileşenler: Operatörler, operandlar, parantezler, fonksiyon çağrıları</li>
+<li>Unary: -a, Binary: a+b, Ternary: a?b:c</li>
+</ul>
+
+<h3>Operatör Önceliği (Genel)</h3>
+<div class='box'>1. Üs alma (**) &nbsp; 2. Çarpma/Bölme &nbsp; 3. Toplama/Çıkarma</div>
+
+<h3>İlişkisellik (Associativity)</h3>
+<ul>
+<li><strong>Sol ilişkili:</strong> a - b + c → (a-b)+c (çoğu operatör)</li>
+<li><strong>Sağ ilişkili:</strong> 2**3**2 → 2**(3**2) = 512 (üs alma)</li>
+<li>Ada: A**B**C → HATA verir (belirsizlik)</li>
+</ul>
+
+<h3>Operatör Aşırı Yükleme (Overloading)</h3>
+<ul>
+<li>+ operatörü: int toplama, float toplama, string birleştirme (Java)</li>
+<li>C++, C#, F# kullanıcı tanımlı overloading destekler</li>
+<li>Java desteklemez</li>
+<li>Avantaj: Okunabilirlik. Dezavantaj: Aşırı kullanımda karmaşa</li>
+</ul>
+
+<h3>Referential Transparency</h3>
+<div class='box box-green'>
+Aynı değere sahip ifadeler birbirinin yerine geçebiliyorsa referans şeffaflığı var.
+Fonksiyonel dillerde yan etki olmadığından bu sağlanır. Kolayca analiz ve test edilir.
+</div>
+
+<h3>Short-Circuit Değerlendirme</h3>
+<ul>
+<li>Tüm operandları değerlendirmeden sonuç belirlenir</li>
+<li>(a >= 0) &amp;&amp; (b &lt; 10) → a &lt; 0 ise ikinci ifade DEĞERLENDİRİLMEZ</li>
+<li>C: &amp;&amp; ve || short-circuit; &amp; ve | değil</li>
+<li>Ada: and then / or else (short-circuit), and / or (değil)</li>
+</ul>
+
+<h3>Atama Türleri</h3>
+<table>
+<tr><th>Tür</th><th>Örnek</th><th>Açıklama</th></tr>
+<tr><td>Basit</td><td>x = 5</td><td>En temel atama</td></tr>
+<tr><td>Bileşik</td><td>a += b</td><td>a = a + b kısaltması</td></tr>
+<tr><td>Prefix</td><td>++count</td><td>Önce artır, sonra kullan</td></tr>
+<tr><td>Postfix</td><td>count++</td><td>Önce kullan, sonra artır</td></tr>
+<tr><td>Çoklu Hedef</td><td>($a,$b) = ($b,$a)</td><td>Perl/Ruby swap</td></tr>
+</table>
+</section>
+
+<!-- KONU 8 -->
+<section id="k8">
+<h2><span class='num'>8</span>Kontrol Akisi ve Secim Yapilari</h2>
+
+<h3>Kontrol Akisi Seviyeleri</h3>
+<ul>
+<li>Ifade duzeyi: operator onceligi ve iliskisellik</li>
+<li>Deyimler arasi: if, loop gibi yapilar</li>
+<li>Program birimleri arasi: fonksiyon/prosed ur cagrilari</li>
+</ul>
+
+<h3>Secim Yapilari (if-else)</h3>
+<ul>
+<li><strong>Ikili secim:</strong> if...else</li>
+<li><strong>Coklu secim:</strong> switch-case</li>
+<li>Dangling Else Problemi: else en yakin if'e baglanir (Java/C)</li>
+<li>Python'da girintiye gore belirlenir</li>
+<li>Ruby'de end kullanildigi icin belirsizlik olmaz</li>
+</ul>
+
+<h3>Switch-Case Ozellikleri</h3>
+<ul>
+<li>C: integer, char gibi discrete type kullanilir</li>
+<li>case degerleri sabit olmali</li>
+<li>Fall-through: break konulmazsa bir sonraki case'e duser!</li>
+<li>break: switch'ten hemen cikmak icin kullanilir</li>
+</ul>
+
+<div class='box box-yellow'>
+<strong>Sinav Ipucu — Fall-through:</strong> C'de break olmadan case bloklari birbirine akar.
+switch(x){case 1: odd++; case 2: even++;} → x=1 ise HER IKISI calisir!
+</div>
+
+<h3>Multiple Selection Nasil Calisir?</h3>
+<table>
+<tr><th>Yontem</th><th>Hiz</th><th>Not</th></tr>
+<tr><td>Linear karsilastirma</td><td>O(n)</td><td>Yavas</td></tr>
+<tr><td>Hash table</td><td>O(1)</td><td>Range desteklemez</td></tr>
+<tr><td>Binary search</td><td>O(log n)</td><td>Orta hiz</td></tr>
+<tr><td>Jump table (array)</td><td>O(1)</td><td>En hizli yontem</td></tr>
+</table>
+
+<h3>Fonksiyonel Dillerde if</h3>
+<div class='box box-green'>
+Fonksiyonel dillerde if bir deyim (statement) degil, bir ifade (expression)'dir.
+Yani bir deger dondurur. else zorunludur! y = if x > 0 then 1 else -1
+</div>
+</section>
+
+<!-- KONU 9 -->
+<section id="k9">
+<h2><span class='num'>9</span>Dongular ve Iterasyon</h2>
+
+<h3>Dongu Cesitleri</h3>
+<table>
+<tr><th>Tur</th><th>Kontrol</th><th>Ornek</th></tr>
+<tr><td>Counter-controlled</td><td>Sayac ile</td><td>for (i=0; i&lt;10; i++)</td></tr>
+<tr><td>Logical-controlled</td><td>Mantiksal kosul ile</td><td>while (x &gt; 0)</td></tr>
+<tr><td>Data-based</td><td>Koleksiyon uzerinde</td><td>for x in liste</td></tr>
+</table>
+
+<h3>Pretest vs Posttest</h3>
+<div class='compare'>
+<div><h4>Pretest (while)</h4>
+Dongu BASLAMADAN kontrol yapilir.<br>
+Kosul false ise HIC CALISMAZ.<br>
+while(x &gt; 0) {...}</div>
+<div><h4>Posttest (do-while)</h4>
+Dongu EN AZ 1 KEZ calisir.<br>
+Sonra kontrol edilir.<br>
+do {...} while(x &gt; 0);</div>
+</div>
+
+<h3>Sayacli Dongu Tasarimi</h3>
+<ul>
+<li>3 temel parametre: baslangic degeri, bitis degeri, artis miktari (step)</li>
+<li>Dongu degiskeni tip secimi: int, float, char?</li>
+<li>Dongu icinde degistirilebilir mi? (Cogu dil izin vermez)</li>
+</ul>
+
+<h3>Fonksiyonel Dillerde Dongu</h3>
+<div class='box'>
+Fonksiyonel dillerde dongu YOKTUR. Bunun yerine recursion (ozyineleme) kullanilir.
+Tail-recursion: Son cagri ozyinelemeyse, optimize edilebilir (stack overflow olmaz).
+</div>
+</section>
+
+<!-- KONU 10 -->
+<section id="k10">
+<h2><span class='num'>10</span>Hesap Kurami ve Halting Problemi</h2>
+
+<h3>Hesap Edilebilirlik (Computability)</h3>
+<ul>
+<li>Bir problemin bilgisayar tarafindan cozulebilip cozulemedigi</li>
+<li>Alan Turing (1936): Evrensel Turing Makinesi modeli</li>
+<li>Bazi problemler hesaplanamazdir (undecidable)</li>
+</ul>
+
+<h3>Halting Problemi (Durma Problemi)</h3>
+<div class='box box-yellow'>
+<strong>Tanim:</strong> Bir program ve giris verildiginde, programin sonunda durup durmayacagini onceden soylemek mumkun mudur?<br><br>
+<strong>Cevap: HAYIR — Bu problem cozulemezdir (undecidable).</strong>
+</div>
+<ul>
+<li>Turing 1936'da kantlamistir</li>
+<li>Kanit yontemi: Celisme (contradiction) ile</li>
+<li>Bir duran-mi? fonksiyonu yazarsak, onu kendine uygularsak celiski cikar</li>
+</ul>
+
+<h3>Rice Teoremi</h3>
+<ul>
+<li>Bir programin davranisi hakkindaki her non-trivial ozellik hesaplanamazdir</li>
+<li>Ornegin: "Bu program bir string mi uretiyor?" sorusu bile hesaplanamazdir</li>
+</ul>
+
+<h3>Dilerin Gucuyle Ilgili</h3>
+<ul>
+<li>Turing-Complete dil: Herhangi bir hesaplamali problemi cozebilir</li>
+<li>Cogu modern programlama dili Turing-Complete'tir</li>
+<li>HTML/CSS Turing-Complete degil (hesaplama yapamaz)</li>
+</ul>
+</section>
+
+<!-- KONU 11 -->
+<section id="k11">
+<h2><span class='num'>11</span>Sik Sorulan Sorular ve Ozet</h2>
+
+<h3>Sik Sinav Sorulari</h3>
+<ul>
+<li><strong>Coercion nedir?</strong> Derleyicinin otomatik yaptigi ortuk tur donusumu (int → float)</li>
+<li><strong>Strong typing nedir?</strong> Tum tip hatalarinin tespit edilme garantisi</li>
+<li><strong>Dangling pointer nedir?</strong> Serbest birakilmis bellegi gosteren pointer</li>
+<li><strong>Closure nedir?</strong> Fonksiyonun tanimlandigi ortamin degiskenlerine erisimi</li>
+<li><strong>Aliasing nedir?</strong> Ayni bellek adresine birden fazla ismin baglanmasi</li>
+<li><strong>Referential transparency?</strong> Ayni deger = birbirinin yerini alabilir (yan etki yok)</li>
+<li><strong>Short-circuit?</strong> Gerek yoksa ikinci operand degerlendirilmez</li>
+<li><strong>Halting problemi?</strong> Bir programin durup durmayacagi onceden soylenemez</li>
+<li><strong>Static vs Dynamic scope?</strong> Statik: kod yapisina gore. Dinamik: cagri zincirine gore</li>
+<li><strong>Deep vs Shallow binding?</strong> Deep: tanimlama aninda. Shallow: cagri aninda</li>
+</ul>
+
+<h3>Ozet Tablo: Parametre Gecis Yontemleri</h3>
+<table>
+<tr><th>Yontem</th><th>In</th><th>Out</th><th>Ornek</th></tr>
+<tr><td>By Value</td><td>Kopya</td><td>Etkisiz</td><td>C default, Java primitive</td></tr>
+<tr><td>By Reference</td><td>Adres</td><td>Degistirir</td><td>C++ &amp;, Fortran</td></tr>
+<tr><td>By Value-Result</td><td>Kopya</td><td>Geri yazar</td><td>Ada in out</td></tr>
+<tr><td>By Name</td><td>Ifade</td><td>Lazy</td><td>Algol 60</td></tr>
+</table>
+
+<h3>Ozet Tablo: Scope Turleri</h3>
+<table>
+<tr><th>Tur</th><th>Belirleme</th><th>Avantaj</th><th>Dezavantaj</th></tr>
+<tr><td>Statik (Lexical)</td><td>Kaynak kod yapisi</td><td>Okunabilir, ozel</td><td>Daha az esnek</td></tr>
+<tr><td>Dinamik</td><td>Cagri zinciri</td><td>Esnek</td><td>Hata bulmasi zor</td></tr>
+</table>
+
+<div class='box box-green'>
+<strong>Son Hatirlatma:</strong> Vize sinavinda en cok sorular:<br>
+Scope (statik vs dinamik), Tip denetimi (strong/weak, static/dynamic),
+Parametre gecisi (value vs reference), BNF/EBNF, Binding zamanlar.
+</div>
+</section>
+
+</div><!-- main container -->
+<footer>
+Programlama Dilleri | BTU Bilgisayar Muhendisligi | Vize Calisma Rehberi
+</footer>
+<script>
+function toggleAnswer(btn){
+  var ans = btn.nextElementSibling;
+  if(ans.style.display==='block'){ans.style.display='none';btn.textContent='Cevabi Goster';}
+  else{ans.style.display='block';btn.textContent='Gizle';}
+}
+</script>
+</body>
+</html>
+
