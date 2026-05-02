@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritabanı Diyagramı — 4 Kişi Renk Paleti</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0f0f1a;
+      font-family: 'Inter', sans-serif;
+      color: #e2e8f0;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    body.light-mode {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    body.light-mode #toolbar {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom-color: #cbd5e1;
+    }
+
+    body.light-mode #toolbar h1 {
+      color: #0f172a;
+    }
+
+    body.light-mode .table-card {
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .card-header {
+      color: #1e293b;
+    }
+
+    body.light-mode .col-row {
+      color: #334155;
+      border-bottom-color: #f1f5f9;
+    }
+
+    body.light-mode .btn {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    body.light-mode .leg-item {
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    body.light-mode .leg-name {
+      color: #0f172a;
+    }
+
+    body.light-mode .leg-info-btn {
+      background: #f8fafc;
+      color: #64748b;
+      border-top-color: #e2e8f0;
+    }
+
+    body.light-mode .leg-info-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    #toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 20px;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+
+    #toolbar h1 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f1f5f9;
+      width: 220px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 220px;
+      align-items: flex-end;
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .leg-item {
+      display: flex;
+      flex-direction: column;
+      width: 140px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .leg-item.faded {
+      opacity: 0.3;
+    }
+
+    .leg-toggle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: center;
+      flex: 1;
+    }
+
+    .leg-toggle:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .leg-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .leg-name {
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      line-height: 1.3;
+    }
+
+    .leg-name-top {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .leg-info-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px;
+      cursor: pointer;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.2s;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+      color: #94a3b8;
+    }
+
+    .leg-info-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .leg-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+    }
+
+    #canvas-wrap {
+      position: fixed;
+      top: 125px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      cursor: grab;
+    }
+
+    #canvas-wrap.grabbing {
+      cursor: grabbing;
+    }
+
+    #svg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      transform-origin: 0 0;
+    }
+
+    #board {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+    }
+
+    .table-card {
+      position: absolute;
+      width: 200px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      background: rgba(20, 20, 36, 0.92);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      transition: box-shadow 0.2s, border-color 0.2s, opacity 0.3s;
+      cursor: move;
+      user-select: none;
+    }
+
+    .table-card:hover {
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+      z-index: 50 !important;
+    }
+
+    .table-card.faded {
+      opacity: 0.15;
+    }
+
+    .card-header {
+      padding: 10px 12px;
+      border-radius: 10px 10px 0 0;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-header .tnum {
+      font-size: 10px;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .card-body {
+      padding: 6px 0;
+    }
+
+    .col-row {
+      padding: 3px 12px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #94a3b8;
+    }
+
+    .col-row:last-child {
+      border-bottom: none;
+    }
+
+    .col-row.pk {
+      color: #fbbf24;
+    }
+
+    .col-row.fk {
+      color: #60a5fa;
+    }
+
+    .badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .badge.pk {
+      background: rgba(251, 191, 36, 0.2);
+      color: #fbbf24;
+    }
+
+    .badge.fk {
+      background: rgba(96, 165, 250, 0.2);
+      color: #60a5fa;
+    }
+
+    svg line {
+      transition: opacity 0.3s;
+    }
+
+    #info-panel {
+      position: fixed;
+      right: -440px;
+      top: 105px;
+      bottom: 0;
+      width: 420px;
+      background: linear-gradient(145deg, rgba(20, 20, 36, 0.98), rgba(15, 15, 26, 0.98));
+      backdrop-filter: blur(16px);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      border-top-left-radius: 16px;
+      padding: 24px;
+      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1001;
+      overflow-y: auto;
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6);
+    }
+
+    #info-panel.open {
+      right: 0;
+    }
+
+    .info-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .info-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      font-size: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+      transform: rotate(90deg);
+    }
+
+    .info-section {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .info-section:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .info-section h3 {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-section p {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .table-list {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .t-badge {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="toolbar">
+    <h1>🗄️ Veritabanı Diyagramı<br><span style="font-size:11px;opacity:0.6;font-weight:400;">proje_db (25 Tablo)</span>
+    </h1>
+    <div class="legend" id="legend"></div>
+    <div class="toolbar-actions">
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="search-box" placeholder="Ara (Örn: Fatura)..."
+          style="padding:6px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.2); color:#fff; width:150px; font-size:12px; outline:none; transition: all 0.2s;">
+        <button class="btn" onclick="document.body.classList.toggle('light-mode')" title="Açık/Koyu Tema">🌓</button>
+        <button class="btn" onclick="exportSVG()" title="SVG Olarak İndir">📸 İndir</button>
+      </div>
+      <a href="chen_diagram.html" class="btn"
+        style="text-decoration:none; display:flex; align-items:center; justify-content:center; background: rgba(59,130,246,0.15); color: #93c5fd; border-color: rgba(59,130,246,0.3);">🔄
+        Chen Notasyonuna Geç</a>
+      <div style="display:flex; gap:8px;">
+        <button class="btn" onclick="resetView()">⌂ Sıfırla</button>
+        <button class="btn" onclick="autoLayout()">⚡ Topla</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="canvas-wrap">
+    <svg id="svg-layer" width="5000" height="4000">
+      <defs>
+        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L6,3 z" fill="rgba(148,163,184,0.5)" />
+        </marker>
+      </defs>
+      <g id="lines"></g>
+    </svg>
+    <div id="board"></div>
+  </div>
+
+  <div id="sql-modal"
+    style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999; background:#0f172a; padding:20px; border-radius:12px; border:1px solid #334155; box-shadow:0 10px 40px rgba(0,0,0,0.8); width:450px;">
+    <h3 style="color:#f8fafc; margin-bottom:12px; display:flex; justify-content:space-between; font-size:15px;">
+      <span id="sql-title">SQL Kodu</span>
+      <span style="cursor:pointer; color:#ef4444;"
+        onclick="document.getElementById('sql-modal').style.display='none'">✕</span>
+    </h3>
+    <pre id="sql-code"
+      style="color:#a7f3d0; background:#020617; padding:16px; border-radius:8px; overflow-x:auto; font-size:12px; font-family:monospace; line-height:1.5;"></pre>
+  </div>
+
+  <div id="info-panel">
+    <div class="info-header">
+      <div class="info-title-wrap">
+        <div class="leg-dot" id="info-dot"></div>
+        <div class="info-title" id="info-name">Kişi Bilgisi</div>
+      </div>
+      <button class="close-btn" id="close-panel" title="Kapat">✕</button>
+    </div>
+    <div class="info-section">
+      <h3>🎯 Sorumluluk Alanı</h3>
+      <p id="info-role">Seçilen kişinin ana görevleri burada yer alır.</p>
+    </div>
+    <div class="info-section">
+      <h3>🔗 Bağlantılar ve İlişkiler</h3>
+      <p id="info-desc">Bu alanda seçilen gruba ait tabloların diğer bölümlerle etkileşimleri açıklanır.</p>
+    </div>
+    <div class="info-section">
+      <h3>🗂️ Yönettiği Tablolar</h3>
+      <div class="table-list" id="info-tables"></div>
+    </div>
+  </div>
+
+  <script>
+    const PERSONS = [
+      {
+        id: 1, name: 'Özgür KOTBAŞ — Kullanıcı & Kimlik', color: '#818cf8', bg: 'rgba(99,102,241,0.25)', border: '#6366f1',
+        role: 'Sistemin temel kullanıcı altyapısı, erişim yetkilendirmeleri (Rol), adres yönetimi, kurumsal müşteri profilleri, anlık bildirimler ve sistemdeki tüm kritik işlemlerin loglanması.',
+        desc: 'Sistemdeki diğer tüm modüllerin ihtiyaç duyduğu temel "Kullanıcı" ve "Adres" verilerini barındırır. Sürücülerin, müşterilerin ve destek taleplerinin tamamı doğrudan bu yapıdaki verilere Foreign Key ile bağlıdır. Ayrıca veri güvenliği ve izlenebilirlik için "Sistem Logları"nı tutar.'
+      },
+      {
+        id: 2, name: 'Bedirhan GÖK — Sürücü & Lojistik', color: '#34d399', bg: 'rgba(16,185,129,0.25)', border: '#10b981',
+        role: 'Sürücü profillerinin oluşturulması, filodaki araçların yönetimi, teslimat güzergahlarının belirlenmesi, rotaların anlık konum takibi ve sahada gerçekleşen varil takas işlemleri.',
+        desc: 'Sahadaki operasyonu yöneterek Ürün (Bilal) ve Sipariş (Reşit) modülleri arasında fiziksel bir köprü görevi görür. "Surucu_Rota" ve "Varil_Takas" tabloları üzerinden siparişlerin teslimat süreçlerini ve varillerin takibini gerçekleştirir.'
+      },
+      {
+        id: 3, name: 'Bilal DOĞRU — Ürün & Depo', color: '#fb923c', bg: 'rgba(249,115,22,0.25)', border: '#f97316',
+        role: 'Ürün kataloğunun ve hiyerarşik kategorilerin yönetimi, varillerin fiziksel durum takibi, depo bazlı stok hareketleri ve pazarlama odaklı indirim kampanyalarının planlanması.',
+        desc: '"Urun" ve "Varil" tabloları aracılığıyla Reşit\'in yönettiği "Sipariş" süreçlerinin temel materyallerini sağlar. "Depo_Stok" tablosu ile sahadan dönen veya sevkiyata çıkan varillerin envanter güncellemelerini takip eder, siparişlere uygulanacak kampanyaları besler.'
+      },
+      {
+        id: 4, name: 'Reşit ASRAV — Sipariş & Fatura', color: '#f472b6', bg: 'rgba(236,72,153,0.25)', border: '#ec4899',
+        role: 'Müşteri siparişlerinin uçtan uca yönetimi, sipariş kalemlerinin fiyatlandırılması, fatura kesimi, tahsilat işlemleri (Ödeme), müşteri destek biletleri ve sipariş değerlendirme süreçleri.',
+        desc: 'Sistemin ticari kalbi olarak çalışır. Özgür\'den gelen "Müşteri" ve "Adres" verileri ile Bilal\'den gelen "Ürün" verilerini "Sipariş" modülünde birleştirir. Finansal akışı yönetir ve "Destek_Talep" mekanizması ile müşteri memnuniyetini kayıt altına alır.'
+      },
+    ];
+
+    const TABLES = [
+      {
+        id: 'Rol', person: 1, num: 1, cols: [
+          { n: 'rol_ID', t: 'INT', pk: true }, { n: 'rol_Ad', t: 'VARCHAR(50)' }, { n: 'rol_Aciklama', t: 'VARCHAR(255)' }, { n: 'rol_OlusturmaTarih', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Kullanici', person: 1, num: 2, cols: [
+          { n: 'kul_ID', t: 'INT', pk: true }, { n: 'kul_RolID', t: 'INT', fk: 'Rol' }, { n: 'kul_Ad', t: 'VARCHAR(100)' }, { n: 'kul_Soyad', t: 'VARCHAR(100)' }, { n: 'kul_Email', t: 'VARCHAR(150)' }, { n: 'kul_SifreHash', t: 'VARCHAR(255)' }, { n: 'kul_Telefon', t: 'VARCHAR(20)' }, { n: 'kul_AktifMi', t: 'TINYINT(1)' }, { n: 'kul_OlusturmaTarih', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Adres', person: 1, num: 3, cols: [
+          { n: 'adr_ID', t: 'INT', pk: true }, { n: 'adr_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'adr_IlAd', t: 'VARCHAR(100)' }, { n: 'adr_IlceAd', t: 'VARCHAR(100)' }, { n: 'adr_Mahalle', t: 'VARCHAR(150)' }, { n: 'adr_SokakNo', t: 'VARCHAR(100)' }, { n: 'adr_PostaKod', t: 'VARCHAR(10)' }, { n: 'adr_VarsayilanMi', t: 'TINYINT(1)' }
+        ]
+      },
+      {
+        id: 'Musteri', person: 1, num: 9, cols: [
+          { n: 'mtr_ID', t: 'INT', pk: true }, { n: 'mtr_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'mtr_FirmaAd', t: 'VARCHAR(150)' }, { n: 'mtr_VergiNo', t: 'VARCHAR(20)' }, { n: 'mtr_KrediLimit', t: 'DECIMAL(12,2)' }, { n: 'mtr_OlusturmaTarih', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Bildirim', person: 1, num: 20, cols: [
+          { n: 'bld_ID', t: 'INT', pk: true }, { n: 'bld_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'bld_Baslik', t: 'VARCHAR(150)' }, { n: 'bld_Mesaj', t: 'TEXT' }, { n: 'bld_OkunduMu', t: 'TINYINT(1)' }, { n: 'bld_GonderimZaman', t: 'DATETIME' }, { n: 'bld_Tur', t: 'VARCHAR(40)' }
+        ]
+      },
+      {
+        id: 'Sistem_Log', person: 1, num: 24, cols: [
+          { n: 'slg_ID', t: 'INT', pk: true }, { n: 'slg_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'slg_Eylem', t: 'VARCHAR(100)' }, { n: 'slg_TabloAd', t: 'VARCHAR(60)' }, { n: 'slg_KayitID', t: 'INT' }, { n: 'slg_OncekiDeger', t: 'JSON' }, { n: 'slg_YeniDeger', t: 'JSON' }, { n: 'slg_LogZaman', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Surucu_Profil', person: 2, num: 4, cols: [
+          { n: 'surp_ID', t: 'INT', pk: true }, { n: 'surp_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'surp_LisansNo', t: 'VARCHAR(50)' }, { n: 'surp_LisansTur', t: 'VARCHAR(30)' }, { n: 'surp_LisansBitis', t: 'DATE' }, { n: 'surp_Durum', t: 'ENUM' }, { n: 'surp_OlusturmaTarih', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Arac', person: 2, num: 5, cols: [
+          { n: 'arc_ID', t: 'INT', pk: true }, { n: 'arc_SurpID', t: 'INT', fk: 'Surucu_Profil' }, { n: 'arc_Plaka', t: 'VARCHAR(20)' }, { n: 'arc_Marka', t: 'VARCHAR(50)' }, { n: 'arc_Model', t: 'VARCHAR(50)' }, { n: 'arc_ModelYil', t: 'YEAR' }, { n: 'arc_KapasiteKg', t: 'DECIMAL(8,2)' }, { n: 'arc_AktifMi', t: 'TINYINT(1)' }
+        ]
+      },
+      {
+        id: 'Guzergah', person: 2, num: 6, cols: [
+          { n: 'guz_ID', t: 'INT', pk: true }, { n: 'guz_Ad', t: 'VARCHAR(150)' }, { n: 'guz_BaslangicAdr', t: 'INT', fk: 'Adres' }, { n: 'guz_BitisAdr', t: 'INT', fk: 'Adres' }, { n: 'guz_TahminiKm', t: 'DECIMAL(8,2)' }, { n: 'guz_AktifMi', t: 'TINYINT(1)' }
+        ]
+      },
+      {
+        id: 'Surucu_Rota', person: 2, num: 7, cols: [
+          { n: 'srot_ID', t: 'INT', pk: true }, { n: 'srot_SurpID', t: 'INT', fk: 'Surucu_Profil' }, { n: 'srot_GuzID', t: 'INT', fk: 'Guzergah' }, { n: 'srot_ArcID', t: 'INT', fk: 'Arac' }, { n: 'srot_BaslangicZaman', t: 'DATETIME' }, { n: 'srot_BitisZaman', t: 'DATETIME' }, { n: 'srot_Durum', t: 'ENUM' }
+        ]
+      },
+      {
+        id: 'Konum_Takip', person: 2, num: 8, cols: [
+          { n: 'ktk_ID', t: 'INT', pk: true }, { n: 'ktk_SrotID', t: 'INT', fk: 'Surucu_Rota' }, { n: 'ktk_Enlem', t: 'DECIMAL(10,7)' }, { n: 'ktk_Boylam', t: 'DECIMAL(10,7)' }, { n: 'ktk_KayitZaman', t: 'DATETIME' }, { n: 'ktk_Hiz', t: 'DECIMAL(6,2)' }
+        ]
+      },
+      {
+        id: 'Varil_Takas', person: 2, num: 17, cols: [
+          { n: 'vtks_ID', t: 'INT', pk: true }, { n: 'vtks_SrotID', t: 'INT', fk: 'Surucu_Rota' }, { n: 'vtks_SipID', t: 'INT', fk: 'Siparis' }, { n: 'vtks_TeslimVarID', t: 'INT', fk: 'Varil' }, { n: 'vtks_GeriVarID', t: 'INT', fk: 'Varil' }, { n: 'vtks_TakasTarih', t: 'DATETIME' }, { n: 'vtks_Aciklama', t: 'VARCHAR(255)' }
+        ]
+      },
+      {
+        id: 'Urun_Kategori', person: 3, num: 10, cols: [
+          { n: 'ukat_ID', t: 'INT', pk: true }, { n: 'ukat_Ad', t: 'VARCHAR(100)' }, { n: 'ukat_UstKatID', t: 'INT', fk: 'Urun_Kategori' }, { n: 'ukat_Aciklama', t: 'VARCHAR(255)' }
+        ]
+      },
+      {
+        id: 'Urun', person: 3, num: 11, cols: [
+          { n: 'urn_ID', t: 'INT', pk: true }, { n: 'urn_KatID', t: 'INT', fk: 'Urun_Kategori' }, { n: 'urn_Ad', t: 'VARCHAR(150)' }, { n: 'urn_Aciklama', t: 'TEXT' }, { n: 'urn_BirimFiyat', t: 'DECIMAL(10,2)' }, { n: 'urn_BirimTur', t: 'VARCHAR(20)' }, { n: 'urn_StokAdet', t: 'INT' }, { n: 'urn_AktifMi', t: 'TINYINT(1)' }
+        ]
+      },
+      {
+        id: 'Varil', person: 3, num: 12, cols: [
+          { n: 'var_ID', t: 'INT', pk: true }, { n: 'var_UrnID', t: 'INT', fk: 'Urun' }, { n: 'var_SeriNo', t: 'VARCHAR(60)' }, { n: 'var_Kapasite', t: 'DECIMAL(8,2)' }, { n: 'var_Durum', t: 'ENUM' }, { n: 'var_SonGuncelleme', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Depo', person: 3, num: 13, cols: [
+          { n: 'dep_ID', t: 'INT', pk: true }, { n: 'dep_AdrID', t: 'INT', fk: 'Adres' }, { n: 'dep_Ad', t: 'VARCHAR(100)' }, { n: 'dep_KapaLitre', t: 'DECIMAL(12,2)' }, { n: 'dep_AktifMi', t: 'TINYINT(1)' }
+        ]
+      },
+      {
+        id: 'Depo_Stok', person: 3, num: 14, cols: [
+          { n: 'dst_ID', t: 'INT', pk: true }, { n: 'dst_DepID', t: 'INT', fk: 'Depo' }, { n: 'dst_VarID', t: 'INT', fk: 'Varil' }, { n: 'dst_GirisTarih', t: 'DATETIME' }, { n: 'dst_CikisTarih', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Kampanya', person: 3, num: 25, cols: [
+          { n: 'kmp_ID', t: 'INT', pk: true }, { n: 'kmp_OlusturanID', t: 'INT', fk: 'Kullanici' }, { n: 'kmp_Ad', t: 'VARCHAR(150)' }, { n: 'kmp_Aciklama', t: 'TEXT' }, { n: 'kmp_IndirimOran', t: 'DECIMAL(5,2)' }, { n: 'kmp_BaslangicTarih', t: 'DATE' }, { n: 'kmp_BitisTarih', t: 'DATE' }, { n: 'kmp_MinSiparisTutar', t: 'DECIMAL(10,2)' }, { n: 'kmp_AktifMi', t: 'TINYINT(1)' }
+        ]
+      },
+      {
+        id: 'Siparis', person: 4, num: 15, cols: [
+          { n: 'sip_ID', t: 'INT', pk: true }, { n: 'sip_MtrID', t: 'INT', fk: 'Musteri' }, { n: 'sip_TesAdrID', t: 'INT', fk: 'Adres' }, { n: 'sip_Durum', t: 'ENUM' }, { n: 'sip_OlusturmaTarih', t: 'DATETIME' }, { n: 'sip_TahminiTeslim', t: 'DATE' }, { n: 'sip_Notlar', t: 'TEXT' }
+        ]
+      },
+      {
+        id: 'Siparis_Kalem', person: 4, num: 16, cols: [
+          { n: 'skap_ID', t: 'INT', pk: true }, { n: 'skap_SipID', t: 'INT', fk: 'Siparis' }, { n: 'skap_UrnID', t: 'INT', fk: 'Urun' }, { n: 'skap_Miktar', t: 'INT' }, { n: 'skap_BirimFiyat', t: 'DECIMAL(10,2)' }, { n: 'skap_IndirimOran', t: 'DECIMAL(5,2)' }
+        ]
+      },
+      {
+        id: 'Fatura', person: 4, num: 18, cols: [
+          { n: 'fat_ID', t: 'INT', pk: true }, { n: 'fat_SipID', t: 'INT', fk: 'Siparis' }, { n: 'fat_FaturaNo', t: 'VARCHAR(30)' }, { n: 'fat_KesisTarih', t: 'DATETIME' }, { n: 'fat_VadeTarih', t: 'DATE' }, { n: 'fat_ToplamTutar', t: 'DECIMAL(12,2)' }, { n: 'fat_KDVOran', t: 'DECIMAL(5,2)' }, { n: 'fat_OdemeDurum', t: 'ENUM' }
+        ]
+      },
+      {
+        id: 'Odeme', person: 4, num: 19, cols: [
+          { n: 'ode_ID', t: 'INT', pk: true }, { n: 'ode_FatID', t: 'INT', fk: 'Fatura' }, { n: 'ode_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'ode_Tutar', t: 'DECIMAL(12,2)' }, { n: 'ode_Yontem', t: 'ENUM' }, { n: 'ode_OdemeTarih', t: 'DATETIME' }, { n: 'ode_ReferansNo', t: 'VARCHAR(80)' }
+        ]
+      },
+      {
+        id: 'Destek_Talep', person: 4, num: 21, cols: [
+          { n: 'dtp_ID', t: 'INT', pk: true }, { n: 'dtp_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'dtp_SipID', t: 'INT', fk: 'Siparis' }, { n: 'dtp_Konu', t: 'VARCHAR(200)' }, { n: 'dtp_Aciklama', t: 'TEXT' }, { n: 'dtp_Durum', t: 'ENUM' }, { n: 'dtp_OlusturmaTarih', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Destek_Mesaj', person: 4, num: 22, cols: [
+          { n: 'dmsg_ID', t: 'INT', pk: true }, { n: 'dmsg_DtpID', t: 'INT', fk: 'Destek_Talep' }, { n: 'dmsg_GonderenID', t: 'INT', fk: 'Kullanici' }, { n: 'dmsg_Mesaj', t: 'TEXT' }, { n: 'dmsg_GonderimZaman', t: 'DATETIME' }
+        ]
+      },
+      {
+        id: 'Degerlendirme', person: 4, num: 23, cols: [
+          { n: 'dgl_ID', t: 'INT', pk: true }, { n: 'dgl_SipID', t: 'INT', fk: 'Siparis' }, { n: 'dgl_KulID', t: 'INT', fk: 'Kullanici' }, { n: 'dgl_Puan', t: 'TINYINT' }, { n: 'dgl_Yorum', t: 'TEXT' }, { n: 'dgl_OlusturmaTarih', t: 'DATETIME' }
+        ]
+      },
+    ];
+
+    const LAYOUT = {
+      Rol: { x: 40, y: 80 },
+      Kullanici: { x: 40, y: 230 },
+      Adres: { x: 40, y: 480 },
+      Musteri: { x: 40, y: 720 },
+      Bildirim: { x: 40, y: 920 },
+      Sistem_Log: { x: 40, y: 1150 },
+      Surucu_Profil: { x: 450, y: 80 },
+      Arac: { x: 450, y: 310 },
+      Guzergah: { x: 450, y: 550 },
+      Surucu_Rota: { x: 450, y: 750 },
+      Konum_Takip: { x: 450, y: 970 },
+      Varil_Takas: { x: 450, y: 1170 },
+      Urun_Kategori: { x: 860, y: 80 },
+      Urun: { x: 860, y: 240 },
+      Varil: { x: 860, y: 480 },
+      Depo: { x: 860, y: 680 },
+      Depo_Stok: { x: 860, y: 860 },
+      Kampanya: { x: 860, y: 1040 },
+      Siparis: { x: 1270, y: 80 },
+      Siparis_Kalem: { x: 1270, y: 300 },
+      Fatura: { x: 1270, y: 490 },
+      Odeme: { x: 1270, y: 720 },
+      Destek_Talep: { x: 1270, y: 930 },
+      Destek_Mesaj: { x: 1270, y: 1150 },
+      Degerlendirme: { x: 1270, y: 1330 },
+    };
+
+    const cardPositions = {};
+    let scale = 0.72, panX = 40, panY = 20;
+    let isPanning = false, startX, startY;
+    let activePersons = new Set([1, 2, 3, 4]);
+
+    const board = document.getElementById('board');
+    const svgLayer = document.getElementById('svg-layer');
+    const linesG = document.getElementById('lines');
+
+    function getP(id) { return PERSONS.find(p => p.id === id); }
+
+    function buildCards() {
+      TABLES.forEach(t => {
+        const pos = LAYOUT[t.id];
+        cardPositions[t.id] = { x: pos.x, y: pos.y };
+        const p = getP(t.person);
+
+        const card = document.createElement('div');
+        card.className = 'table-card';
+        card.id = 'card-' + t.id;
+        card.dataset.person = t.person;
+        card.style.cssText = `left:${pos.x}px;top:${pos.y}px;border-color:${p.border};z-index:${t.num}`;
+
+        const header = document.createElement('div');
+        header.className = 'card-header';
+        header.style.background = p.bg;
+        header.style.color = p.color;
+        header.innerHTML = `<span>${t.id}</span><span class="tnum">#${t.num}</span>`;
+        card.appendChild(header);
+
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        t.cols.forEach(c => {
+          const row = document.createElement('div');
+          row.className = 'col-row' + (c.pk ? ' pk' : c.fk ? ' fk' : '');
+          let badge = '';
+          if (c.pk) badge = '<span class="badge pk">PK</span>';
+          else if (c.fk) badge = '<span class="badge fk">FK</span>';
+          row.innerHTML = `${badge}<span>${c.n}</span>`;
+          body.appendChild(row);
+        });
+        card.appendChild(body);
+
+        let dragging = false, dx, dy;
+        card.addEventListener('mousedown', e => {
+          if (e.button !== 0) return;
+          e.stopPropagation();
+          e.preventDefault();
+          dragging = true;
+          dx = (e.clientX - panX) / scale - cardPositions[t.id].x;
+          dy = (e.clientY - panY) / scale - cardPositions[t.id].y;
+          card.style.zIndex = 999;
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+        });
+        function onMove(e) {
+          if (!dragging) return;
+          cardPositions[t.id].x = (e.clientX - panX) / scale - dx;
+          cardPositions[t.id].y = (e.clientY - panY) / scale - dy;
+          card.style.left = cardPositions[t.id].x + 'px';
+          card.style.top = cardPositions[t.id].y + 'px';
+          drawLines();
+        }
+        function onUp() {
+          dragging = false;
+          card.style.zIndex = t.num;
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup', onUp);
+        }
+
+        // SQL Modal (Çift Tıklama)
+        card.addEventListener('dblclick', (e) => {
+          e.stopPropagation();
+          showSQLModal(t);
+        });
+
+        board.appendChild(card);
+      });
+    }
+
+    const CONNS = [
+      { from: 'Kullanici', to: 'Rol', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Adres', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Surucu_Profil', to: 'Kullanici', cardFrom: '1', cardTo: '1', opt: false },
+      { from: 'Arac', to: 'Surucu_Profil', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Guzergah', to: 'Adres', cardFrom: 'N', cardTo: '1', opt: false, label: 'Başlangıç' },
+      { from: 'Guzergah', to: 'Adres', cardFrom: 'N', cardTo: '1', opt: false, label: 'Bitiş', offset: 12 },
+      { from: 'Surucu_Rota', to: 'Surucu_Profil', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Surucu_Rota', to: 'Guzergah', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Surucu_Rota', to: 'Arac', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Konum_Takip', to: 'Surucu_Rota', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Musteri', to: 'Kullanici', cardFrom: '1', cardTo: '1', opt: false },
+      { from: 'Urun_Kategori', to: 'Urun_Kategori', cardFrom: 'N', cardTo: '1', opt: true, label: 'Üst' },
+      { from: 'Urun', to: 'Urun_Kategori', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Varil', to: 'Urun', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Depo', to: 'Adres', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Depo_Stok', to: 'Depo', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Depo_Stok', to: 'Varil', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Siparis', to: 'Musteri', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Siparis', to: 'Adres', cardFrom: 'N', cardTo: '1', opt: false, label: 'Teslimat' },
+      { from: 'Siparis_Kalem', to: 'Siparis', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Varil_Takas', to: 'Surucu_Rota', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Varil_Takas', to: 'Siparis', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Varil_Takas', to: 'Varil', cardFrom: 'N', cardTo: '1', opt: false, label: 'Teslim' },
+      { from: 'Varil_Takas', to: 'Varil', cardFrom: 'N', cardTo: '1', opt: false, label: 'İade', offset: 12 },
+      { from: 'Fatura', to: 'Siparis', cardFrom: '1', cardTo: '1', opt: false },
+      { from: 'Odeme', to: 'Fatura', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Odeme', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Bildirim', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Destek_Talep', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Destek_Talep', to: 'Siparis', cardFrom: 'N', cardTo: '1', opt: true },
+      { from: 'Destek_Mesaj', to: 'Destek_Talep', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Destek_Mesaj', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Degerlendirme', to: 'Siparis', cardFrom: '1', cardTo: '1', opt: false },
+      { from: 'Degerlendirme', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: false },
+      { from: 'Sistem_Log', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: true },
+      { from: 'Kampanya', to: 'Kullanici', cardFrom: 'N', cardTo: '1', opt: false },
+    ];
+
+    const svgEl = (tag, attrs) => {
+      const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      for (let k in attrs) el.setAttribute(k, attrs[k]);
+      return el;
+    };
+
+    function drawCrowFoot(g, x, y, angle, card, isOpt, color, opacity) {
+      const sz = 10;
+      const cos = Math.cos(angle), sin = Math.sin(angle);
+      if (card === 'N') {
+        for (let a of [-0.45, 0, 0.45]) {
+          const ea = angle + a;
+          g.appendChild(svgEl('line', { x1: x, y1: y, x2: x - Math.cos(ea) * sz, y2: y - Math.sin(ea) * sz, stroke: color, 'stroke-width': '2', opacity }));
+        }
+      } else {
+        const px = -sin * sz * 0.6, py = cos * sz * 0.6;
+        g.appendChild(svgEl('line', { x1: x + px, y1: y + py, x2: x - px, y2: y - py, stroke: color, 'stroke-width': '2', opacity }));
+      }
+      if (isOpt) {
+        const cx = x - cos * (sz + 4), cy = y - sin * (sz + 4);
+        g.appendChild(svgEl('circle', { cx, cy, r: 4, fill: 'none', stroke: color, 'stroke-width': '1.5', opacity }));
+      }
+    }
+
+    function drawLines() {
+      linesG.innerHTML = '';
+      CONNS.forEach(conn => {
+        const a = cardPositions[conn.from];
+        const b = cardPositions[conn.to];
+        if (!a || !b) return;
+        const fromT = TABLES.find(t => t.id === conn.from);
+        const toT = TABLES.find(t => t.id === conn.to);
+        if (!fromT || !toT) return;
+        const faded = !activePersons.has(fromT.person) || !activePersons.has(toT.person);
+        const fromP = getP(fromT.person);
+        const color = fromP.color;
+        const op = faded ? '0.05' : '0.55';
+        const off = conn.offset || 0;
+
+        if (conn.from === conn.to) {
+          const x = a.x + 200, y = a.y + 30 + off;
+          const d = `M${x},${y} C${x + 60},${y} ${x + 60},${y - 50} ${x},${y - 20}`;
+          linesG.appendChild(svgEl('path', { d, stroke: color, 'stroke-width': '1.5', fill: 'none', opacity: op }));
+          drawCrowFoot(linesG, x, y, Math.PI, conn.cardFrom, false, color, op);
+          drawCrowFoot(linesG, x, y - 20, Math.PI, conn.cardTo, conn.opt, color, op);
+          if (conn.label) {
+            const t = svgEl('text', { x: x + 65, y: y - 10, fill: color, 'font-size': '9', opacity: op, 'font-family': 'Inter' });
+            t.textContent = conn.label;
+            linesG.appendChild(t);
+          }
+          return;
+        }
+
+        const x1 = a.x + 200, y1 = a.y + 22 + off;
+        const x2 = b.x, y2 = b.y + 22 + off;
+        const cx = (x1 + x2) / 2;
+        const d = `M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`;
+        linesG.appendChild(svgEl('path', { d, stroke: color, 'stroke-width': '1.5', fill: 'none', opacity: op }));
+        drawCrowFoot(linesG, x1, y1, 0, conn.cardFrom, false, color, op);
+        drawCrowFoot(linesG, x2, y2, Math.PI, conn.cardTo, conn.opt, color, op);
+
+        if (conn.label) {
+          const t = svgEl('text', { x: cx, y: ((y1 + y2) / 2) - 6, fill: color, 'font-size': '9', opacity: op, 'font-family': 'Inter', 'text-anchor': 'middle' });
+          t.textContent = conn.label;
+          linesG.appendChild(t);
+        }
+      });
+    }
+
+    function applyTransform() {
+      board.style.transform = `translate(${panX}px,${panY}px) scale(${scale})`;
+      svgLayer.style.transform = `translate(${panX}px,${panY}px) scale(${scale})`;
+    }
+
+    document.getElementById('close-panel').addEventListener('click', () => {
+      document.getElementById('info-panel').classList.remove('open');
+    });
+
+    function buildLegend() {
+      const leg = document.getElementById('legend');
+      PERSONS.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.className = 'leg-item';
+        item.style.borderColor = p.border;
+        item.style.background = p.bg;
+        item.style.color = p.color;
+
+        const nameParts = p.name.split(' — ');
+        const title = nameParts[0];
+        const subtitle = nameParts[1] || '';
+
+        // Kişilere özel avatarlar atanıyor
+        let avatarUrl = 'images/rastgele.png';
+        if (p.id === 1) avatarUrl = 'images/ozgur.png';
+        else if (p.id === 2) avatarUrl = 'images/bedirhan.png';
+        else if (p.id === 3) avatarUrl = 'images/bilal.png';
+        else if (p.id === 4) avatarUrl = 'images/resit.png';
+
+        item.innerHTML = `
+      <div class="leg-toggle">
+        <img src="${avatarUrl}" alt="Profil" class="leg-avatar" style="border-color:${p.color};">
+        <div class="leg-name">
+          <div class="leg-name-top">
+            <div class="leg-dot" style="background:${p.color}"></div>
+            ${title}
+          </div>
+          <span style="font-weight:400; opacity:0.8; font-size:10px;">${subtitle}</span>
+        </div>
+      </div>
+      <div class="leg-info-btn" title="Kişi Bilgisini Gör">
+        <span style="font-size: 14px; opacity: 0.8;">ℹ️</span> Bilgi
+      </div>
+    `;
+
+        const toggleBtn = item.querySelector('.leg-toggle');
+        const infoBtn = item.querySelector('.leg-info-btn');
+
+        toggleBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (activePersons.has(p.id)) {
+            if (activePersons.size === 1) return;
+            activePersons.delete(p.id);
+            item.classList.add('faded');
+          } else {
+            activePersons.add(p.id);
+            item.classList.remove('faded');
+          }
+          document.querySelectorAll('.table-card').forEach(c => {
+            c.classList.toggle('faded', !activePersons.has(+c.dataset.person));
+          });
+          drawLines();
+        });
+
+        infoBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const panel = document.getElementById('info-panel');
+          document.getElementById('info-name').textContent = p.name;
+          document.getElementById('info-role').textContent = p.role;
+          document.getElementById('info-desc').textContent = p.desc;
+          document.querySelector('.info-title-wrap').style.color = p.color;
+          document.getElementById('info-dot').style.background = p.color;
+          const tList = document.getElementById('info-tables');
+          tList.innerHTML = '';
+          TABLES.filter(t => t.person === p.id).forEach(t => {
+            const span = document.createElement('span');
+            span.className = 't-badge';
+            span.style.borderColor = p.border;
+            span.style.color = p.color;
+            span.textContent = t.id;
+            tList.appendChild(span);
+          });
+          panel.classList.add('open');
+        });
+
+        leg.appendChild(item);
+      });
+    }
+
+    function resetView() {
+      scale = 0.72; panX = 40; panY = 20; applyTransform();
+    }
+
+    function autoLayout() {
+      TABLES.forEach(t => {
+        const pos = LAYOUT[t.id];
+        cardPositions[t.id] = { x: pos.x, y: pos.y };
+        const card = document.getElementById('card-' + t.id);
+        card.style.left = pos.x + 'px';
+        card.style.top = pos.y + 'px';
+      });
+      drawLines();
+    }
+
+    // Pan
+    const wrap = document.getElementById('canvas-wrap');
+    wrap.addEventListener('mousedown', e => {
+      if (e.target !== wrap && e.target !== svgLayer && !e.target.closest('svg')) return;
+      e.preventDefault();
+      isPanning = true; startX = e.clientX - panX; startY = e.clientY - panY;
+      wrap.classList.add('grabbing');
+    });
+    document.addEventListener('mousemove', e => {
+      if (!isPanning) return;
+      panX = e.clientX - startX; panY = e.clientY - startY; applyTransform();
+    });
+    document.addEventListener('mouseup', () => { isPanning = false; wrap.classList.remove('grabbing'); });
+
+    // Zoom
+    wrap.addEventListener('wheel', e => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? 0.92 : 1.08;
+      scale = Math.min(2, Math.max(0.2, scale * delta));
+      applyTransform();
+    }, { passive: false });
+
+    // 1. SQL Kodu Gösterimi
+    function showSQLModal(t) {
+      let sql = `CREATE TABLE ${t.id} (\n`;
+      t.cols.forEach(c => {
+        let type = c.n.toLowerCase().includes('tarih') || c.n.toLowerCase().includes('zaman') ? 'DATETIME' :
+          (c.n.toLowerCase().includes('id') || c.n.toLowerCase().includes('no')) ? 'INT' : 'VARCHAR(255)';
+        sql += `  ${c.n} ${type}${c.pk ? ' PRIMARY KEY' : ''},\n`;
+      });
+      t.cols.forEach(c => {
+        if (c.fk) sql += `  -- FOREIGN KEY (${c.n}) REFERENCES ...\n`;
+      });
+      sql = sql.slice(0, -2) + `\n);`;
+      document.getElementById('sql-title').innerText = t.id + ' Tablosu SQL Kodu';
+      document.getElementById('sql-code').textContent = sql;
+      document.getElementById('sql-modal').style.display = 'block';
+    }
+
+    // 2. SVG (Resim) Olarak İndir
+    function exportSVG() {
+      const isLight = document.body.classList.contains('light-mode');
+      let fullSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="5000" height="4000" style="background:${isLight ? '#f8fafc' : '#0f0f1a'}; font-family:sans-serif;">`;
+      fullSVG += document.getElementById('svg-layer').innerHTML;
+      TABLES.forEach(t => {
+        if (!activePersons.has(t.person)) return;
+        const pos = cardPositions[t.id];
+        const h = 34 + t.cols.length * 27;
+        const p = getP(t.person);
+        fullSVG += `<rect x="${pos.x}" y="${pos.y}" width="200" height="${h}" rx="8" fill="${isLight ? '#fff' : '#1e293b'}" stroke="${p.color}" stroke-width="2"/>`;
+        fullSVG += `<rect x="${pos.x}" y="${pos.y}" width="200" height="34" rx="8" fill="${p.color}" opacity="0.2"/>`;
+        fullSVG += `<text x="${pos.x + 12}" y="${pos.y + 22}" fill="${isLight ? '#0f172a' : '#fff'}" font-size="13" font-weight="bold">${t.id}</text>`;
+        t.cols.forEach((c, i) => {
+          fullSVG += `<text x="${pos.x + 12}" y="${pos.y + 52 + i * 27}" fill="${c.pk ? '#fbbf24' : (isLight ? '#475569' : '#94a3b8')}" font-size="12">${c.n}</text>`;
+        });
+      });
+      fullSVG += `</svg>`;
+      const blob = new Blob([fullSVG], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'diyagram_export.svg'; a.click();
+    }
+
+    // 3. Arama ve Odaklanma (Search & Focus)
+    document.getElementById('search-box').addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      if (!val) {
+        document.querySelectorAll('.table-card').forEach(c => { c.style.opacity = '1'; c.style.boxShadow = 'none'; });
+        return;
+      }
+      let firstMatch = null;
+      TABLES.forEach(t => {
+        const card = document.getElementById('card-' + t.id);
+        if (!card) return;
+        const match = t.id.toLowerCase().includes(val) || t.cols.some(c => c.n.toLowerCase().includes(val));
+        if (match) {
+          card.style.opacity = '1';
+          card.style.boxShadow = '0 0 20px #fbbf24';
+          if (!firstMatch) firstMatch = t.id;
+        } else {
+          card.style.opacity = '0.15';
+          card.style.boxShadow = 'none';
+        }
+      });
+      if (firstMatch && val.length >= 2) {
+        const pos = cardPositions[firstMatch];
+        panX = -pos.x * scale + window.innerWidth / 2 - 100;
+        panY = -pos.y * scale + window.innerHeight / 2 - 50;
+        applyTransform();
+      }
+    });
+
+    buildLegend();
+    buildCards();
+    applyTransform();
+    drawLines();
+  </script>
+</body>
+
+</html>
