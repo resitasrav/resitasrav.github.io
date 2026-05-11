@@ -1,0 +1,127 @@
+tablo_adi,sutun_adi,birincil_anahtar,turetilmis,cok_degerli,aciklama
+Rol,rol_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Rol,rol_Ad,HAYIR,HAYIR,HAYIR,Rol adı
+Rol,rol_Aciklama,HAYIR,HAYIR,HAYIR,Rol açıklaması
+Rol,rol_OlusturmaTarih,HAYIR,HAYIR,HAYIR,Oluşturulma tarihi
+Kullanici,kul_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Kullanici,kul_RolID,HAYIR,HAYIR,HAYIR,FK → Rol.rol_ID
+Kullanici,kul_Ad,HAYIR,HAYIR,HAYIR,Kullanıcı adı
+Kullanici,kul_Soyad,HAYIR,HAYIR,HAYIR,Kullanıcı soyadı
+Kullanici,kul_Email,HAYIR,HAYIR,HAYIR,E-posta adresi
+Kullanici,kul_Telefon,HAYIR,HAYIR,EVET,Çok değerli telefon numarası
+Kullanici,kul_AktifMi,HAYIR,HAYIR,HAYIR,Hesap aktiflik durumu
+Kullanici,kul_OlusturmaTarih,HAYIR,HAYIR,HAYIR,Kayıt tarihi
+Adres,adr_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Adres,adr_KulID,HAYIR,HAYIR,HAYIR,FK → Kullanici.kul_ID
+Adres,adr_IlAd,HAYIR,HAYIR,HAYIR,İl adı
+Adres,adr_IlceAd,HAYIR,HAYIR,HAYIR,İlçe adı
+Adres,adr_Mahalle,HAYIR,HAYIR,HAYIR,Mahalle
+Adres,adr_SokakNo,HAYIR,HAYIR,HAYIR,Sokak ve numara
+Adres,adr_PostaKod,HAYIR,HAYIR,HAYIR,Posta kodu
+Adres,adr_VarsayilanMi,HAYIR,HAYIR,HAYIR,Varsayılan adres mi?
+Musteri,mtr_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Musteri,mtr_KulID,HAYIR,HAYIR,HAYIR,FK → Kullanici.kul_ID
+Musteri,mtr_FirmaAd,HAYIR,HAYIR,HAYIR,Firma adı
+Musteri,mtr_VergiNo,HAYIR,HAYIR,HAYIR,Vergi numarası
+Musteri,mtr_KrediLimit,HAYIR,HAYIR,HAYIR,Kredi limiti
+Musteri,mtr_OlusturmaTarih,HAYIR,HAYIR,HAYIR,Kayıt tarihi
+Bildirim,bld_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Bildirim,bld_KulID,HAYIR,HAYIR,HAYIR,FK → Kullanici.kul_ID
+Bildirim,bld_Baslik,HAYIR,HAYIR,HAYIR,Bildirim başlığı
+Bildirim,bld_Mesaj,HAYIR,HAYIR,HAYIR,Bildirim mesajı
+Bildirim,bld_OkunduMu,HAYIR,HAYIR,HAYIR,Okundu durumu
+Bildirim,bld_Tur,HAYIR,HAYIR,HAYIR,Bildirim türü
+Sistem_Log,slg_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Sistem_Log,slg_KulID,HAYIR,HAYIR,HAYIR,FK → Kullanici.kul_ID
+Sistem_Log,slg_Eylem,HAYIR,HAYIR,HAYIR,Gerçekleştirilen eylem
+Sistem_Log,slg_TabloAd,HAYIR,HAYIR,HAYIR,İşlem yapılan tablo
+Sistem_Log,slg_LogZaman,HAYIR,HAYIR,HAYIR,Log zamanı
+Surucu_Profil,surp_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Surucu_Profil,surp_KulID,HAYIR,HAYIR,HAYIR,FK → Kullanici.kul_ID
+Surucu_Profil,surp_LisansNo,HAYIR,HAYIR,HAYIR,Ehliyet numarası
+Surucu_Profil,surp_LisansTur,HAYIR,HAYIR,EVET,Çok değerli lisans türü (A/B/C/D/E)
+Surucu_Profil,surp_Durum,HAYIR,HAYIR,HAYIR,Sürücü durumu
+Arac,arc_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Arac,arc_SurpID,HAYIR,HAYIR,HAYIR,FK → Surucu_Profil.surp_ID
+Arac,arc_Plaka,HAYIR,HAYIR,HAYIR,Araç plakası
+Arac,arc_Marka,HAYIR,HAYIR,HAYIR,Araç markası
+Arac,arc_Model,HAYIR,HAYIR,HAYIR,Araç modeli
+Arac,arc_KapasiteKg,HAYIR,EVET,HAYIR,Türetilmiş: toplam kapasite (kg)
+Guzergah,guz_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Guzergah,guz_Ad,HAYIR,HAYIR,HAYIR,Güzergah adı
+Guzergah,guz_TahminiKm,HAYIR,EVET,HAYIR,Türetilmiş: tahmini mesafe (km)
+Guzergah,guz_AktifMi,HAYIR,HAYIR,HAYIR,Aktiflik durumu
+Surucu_Rota,srot_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Surucu_Rota,srot_SurpID,HAYIR,HAYIR,HAYIR,FK → Surucu_Profil.surp_ID
+Surucu_Rota,srot_GuzID,HAYIR,HAYIR,HAYIR,FK → Guzergah.guz_ID
+Surucu_Rota,srot_ArcID,HAYIR,HAYIR,HAYIR,FK → Arac.arc_ID
+Surucu_Rota,srot_BaslangicZaman,HAYIR,HAYIR,HAYIR,Rota başlangıç zamanı
+Surucu_Rota,srot_Durum,HAYIR,HAYIR,HAYIR,Rota durumu
+Konum_Takip,ktk_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Konum_Takip,ktk_SrotID,HAYIR,HAYIR,HAYIR,FK → Surucu_Rota.srot_ID
+Konum_Takip,ktk_Enlem,HAYIR,HAYIR,HAYIR,GPS enlem
+Konum_Takip,ktk_Boylam,HAYIR,HAYIR,HAYIR,GPS boylam
+Konum_Takip,ktk_Hiz,HAYIR,EVET,HAYIR,Türetilmiş: anlık hız
+Varil_Takas,vtks_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Varil_Takas,vtks_SrotID,HAYIR,HAYIR,HAYIR,FK → Surucu_Rota.srot_ID
+Varil_Takas,vtks_SipID,HAYIR,HAYIR,HAYIR,FK → Siparis.sip_ID
+Varil_Takas,vtks_TakasTarih,HAYIR,HAYIR,HAYIR,Takas tarihi
+Urun_Kategori,ukat_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Urun_Kategori,ukat_Ad,HAYIR,HAYIR,HAYIR,Kategori adı
+Urun_Kategori,ukat_UstKatID,HAYIR,HAYIR,HAYIR,FK → Urun_Kategori.ukat_ID (öz referans)
+Urun,urn_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Urun,urn_KatID,HAYIR,HAYIR,HAYIR,FK → Urun_Kategori.ukat_ID
+Urun,urn_Ad,HAYIR,HAYIR,HAYIR,Ürün adı
+Urun,urn_BirimFiyat,HAYIR,HAYIR,HAYIR,Birim fiyat
+Urun,urn_StokAdet,HAYIR,HAYIR,HAYIR,Stok adedi
+Varil,var_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Varil,var_UrnID,HAYIR,HAYIR,HAYIR,FK → Urun.urn_ID
+Varil,var_SeriNo,HAYIR,HAYIR,HAYIR,Seri numarası
+Varil,var_Kapasite,HAYIR,HAYIR,HAYIR,Kapasite (litre)
+Varil,var_Durum,HAYIR,HAYIR,HAYIR,Varil durumu
+Depo,dep_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Depo,dep_AdrID,HAYIR,HAYIR,HAYIR,FK → Adres.adr_ID
+Depo,dep_Ad,HAYIR,HAYIR,HAYIR,Depo adı
+Depo,dep_KapaLitre,HAYIR,EVET,HAYIR,Türetilmiş: toplam kapasite (litre)
+Depo_Stok,dst_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Depo_Stok,dst_DepID,HAYIR,HAYIR,HAYIR,FK → Depo.dep_ID
+Depo_Stok,dst_VarID,HAYIR,HAYIR,HAYIR,FK → Varil.var_ID
+Depo_Stok,dst_GirisTarih,HAYIR,HAYIR,HAYIR,Depoya giriş tarihi
+Kampanya,kmp_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Kampanya,kmp_OlusturanID,HAYIR,HAYIR,HAYIR,FK → Kullanici.kul_ID
+Kampanya,kmp_Ad,HAYIR,HAYIR,HAYIR,Kampanya adı
+Kampanya,kmp_IndirimOran,HAYIR,HAYIR,HAYIR,İndirim oranı
+Kampanya,kmp_AktifMi,HAYIR,HAYIR,HAYIR,Aktiflik durumu
+Siparis,sip_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Siparis,sip_MtrID,HAYIR,HAYIR,HAYIR,FK → Musteri.mtr_ID
+Siparis,sip_Durum,HAYIR,HAYIR,HAYIR,Sipariş durumu
+Siparis,sip_OlusturmaTarih,HAYIR,HAYIR,HAYIR,Oluşturulma tarihi
+Siparis,sip_TahminiTeslim,HAYIR,EVET,HAYIR,Türetilmiş: tahmini teslim tarihi
+Siparis_Kalem,skap_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Siparis_Kalem,skap_SipID,HAYIR,HAYIR,HAYIR,FK → Siparis.sip_ID
+Siparis_Kalem,skap_UrnID,HAYIR,HAYIR,HAYIR,FK → Urun.urn_ID
+Siparis_Kalem,skap_Miktar,HAYIR,HAYIR,HAYIR,Sipariş miktarı
+Siparis_Kalem,skap_BirimFiyat,HAYIR,HAYIR,HAYIR,Satış anındaki birim fiyat
+Fatura,fat_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Fatura,fat_SipID,HAYIR,HAYIR,HAYIR,FK → Siparis.sip_ID
+Fatura,fat_FaturaNo,HAYIR,HAYIR,HAYIR,Fatura numarası
+Fatura,fat_ToplamTutar,HAYIR,EVET,HAYIR,Türetilmiş: toplam tutar
+Fatura,fat_OdemeDurum,HAYIR,HAYIR,HAYIR,Ödeme durumu
+Odeme,ode_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Odeme,ode_FatID,HAYIR,HAYIR,HAYIR,FK → Fatura.fat_ID
+Odeme,ode_Tutar,HAYIR,HAYIR,HAYIR,Ödeme tutarı
+Odeme,ode_Yontem,HAYIR,HAYIR,HAYIR,Ödeme yöntemi
+Odeme,ode_OdemeTarih,HAYIR,HAYIR,HAYIR,Ödeme tarihi
+Destek_Talep,dtp_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Destek_Talep,dtp_KulID,HAYIR,HAYIR,HAYIR,FK → Kullanici.kul_ID
+Destek_Talep,dtp_SipID,HAYIR,HAYIR,HAYIR,FK → Siparis.sip_ID
+Destek_Talep,dtp_Konu,HAYIR,HAYIR,HAYIR,Destek konusu
+Destek_Talep,dtp_Durum,HAYIR,HAYIR,HAYIR,Talep durumu
+Destek_Mesaj,dmsg_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Destek_Mesaj,dmsg_DtpID,HAYIR,HAYIR,HAYIR,FK → Destek_Talep.dtp_ID
+Destek_Mesaj,dmsg_Mesaj,HAYIR,HAYIR,HAYIR,Mesaj içeriği
+Destek_Mesaj,dmsg_GonderimZaman,HAYIR,HAYIR,HAYIR,Gönderim zamanı
+Degerlendirme,dgl_ID,EVET,HAYIR,HAYIR,Birincil anahtar
+Degerlendirme,dgl_SipID,HAYIR,HAYIR,HAYIR,FK → Siparis.sip_ID
+Degerlendirme,dgl_Puan,HAYIR,HAYIR,HAYIR,Değerlendirme puanı
+Degerlendirme,dgl_Yorum,HAYIR,HAYIR,HAYIR,Yorum metni

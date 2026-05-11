@@ -293,14 +293,15 @@
 
   <div id="toolbar">
     <h1>🗄️ Chen Model Diyagramı — proje_db</h1>
-    <div style="display:flex; gap:8px;">
+    <div style="display:flex; gap:8px; align-items:center;">
       <input type="text" id="search-box" placeholder="Varlık veya Nitelik ara..."
         style="padding:6px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.2); background:rgba(255,255,255,0.9); width:180px; font-size:12px; outline:none; transition: all 0.2s;">
       <button class="btn" onclick="document.body.classList.toggle('dark-mode')" title="Açık/Koyu Tema">🌓</button>
       <button class="btn" onclick="exportSVG()" title="SVG Olarak İndir">📸 İndir</button>
-      <a href="diyagram.html" class="btn"
-        style="text-decoration:none; display:flex; align-items:center; background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">🔄
-        Kaz Ayağı</a>
+      <a href="kazayagi_diyagram.html" class="btn"
+        style="text-decoration:none; display:flex; align-items:center; background: #e0f2fe; color: #0369a1; border-color: #bae6fd;">🦶 Kaz Ayağı</a>
+      <a href="veritabani_sema.html" class="btn"
+        style="text-decoration:none; display:flex; align-items:center; background: #fef3c7; color: #92400e; border-color: #fde68a;">📋 Şema</a>
       <button class="btn" onclick="resetView()">⌂ Sıfırla</button>
     </div>
   </div>
@@ -641,19 +642,21 @@
     }, { passive: false });
 
     canvasWrap.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
       if (e.target.closest('.chen-entity')) return;
       isPanning = true;
       startX = e.clientX - panX;
       startY = e.clientY - panY;
       canvasWrap.classList.add('grabbing');
     });
-    window.addEventListener('mousemove', e => {
+    document.addEventListener('mousemove', e => {
       if (!isPanning) return;
       panX = e.clientX - startX;
       panY = e.clientY - startY;
       applyTransform();
     });
-    window.addEventListener('mouseup', () => {
+    document.addEventListener('mouseup', () => {
+      if (!isPanning) return;
       isPanning = false;
       canvasWrap.classList.remove('grabbing');
     });

@@ -1,0 +1,35 @@
+kaynak_tablo,hedef_tablo,iliski_adi,kaynak_kardinalite,hedef_kardinalite,iliski_turu
+Kullanici,Rol,Sahiptir,N,1,Güçlü İlişki
+Adres,Kullanici,Aittir,N,1,Güçlü İlişki
+Surucu_Profil,Kullanici,Detayıdır,1,1,Güçlü İlişki
+Arac,Surucu_Profil,Kullanır,N,1,Güçlü İlişki
+Guzergah,Adres,Bağlar,N,1,Güçlü İlişki
+Surucu_Rota,Surucu_Profil,Atanır,N,1,Güçlü İlişki
+Surucu_Rota,Guzergah,İzlenir,N,1,Güçlü İlişki
+Surucu_Rota,Arac,Sürülür,N,1,Güçlü İlişki
+Konum_Takip,Surucu_Rota,Kaydeder,N,1,Tanımlayıcı İlişki (Zayıf)
+Musteri,Kullanici,Detayıdır,1,1,Güçlü İlişki
+Urun_Kategori,Urun_Kategori,İçerir,N,1,Güçlü İlişki (Öz-referans)
+Urun,Urun_Kategori,Kategorilenir,N,1,Güçlü İlişki
+Varil,Urun,Doldurulur,N,1,Güçlü İlişki
+Depo,Adres,Konumlanır,N,1,Güçlü İlişki
+Depo_Stok,Depo,Stoklanır,N,1,Tanımlayıcı İlişki (Zayıf)
+Depo_Stok,Varil,Tutulur,N,1,Güçlü İlişki
+Siparis,Musteri,Verir,N,1,Güçlü İlişki
+Siparis,Adres,TeslimEdilir,N,1,Güçlü İlişki
+Siparis_Kalem,Siparis,Aittir,N,1,Tanımlayıcı İlişki (Zayıf)
+Siparis_Kalem,Urun,İçerir,N,1,Güçlü İlişki
+Varil_Takas,Surucu_Rota,Gerçekleşir,N,1,Tanımlayıcı İlişki (Zayıf)
+Varil_Takas,Siparis,Bağlıdır,N,1,Güçlü İlişki
+Varil_Takas,Varil,Takaslanır,N,1,Güçlü İlişki
+Fatura,Siparis,Kesilir,1,1,Güçlü İlişki
+Odeme,Fatura,Ödenir,N,1,Güçlü İlişki
+Odeme,Kullanici,TahsilEder,N,1,Güçlü İlişki
+Bildirim,Kullanici,Alır,N,1,Tanımlayıcı İlişki (Zayıf)
+Destek_Talep,Kullanici,Açar,N,1,Güçlü İlişki
+Destek_Mesaj,Destek_Talep,İçerir,N,1,Tanımlayıcı İlişki (Zayıf)
+Destek_Mesaj,Kullanici,Yazar,N,1,Güçlü İlişki
+Degerlendirme,Siparis,Puanlanır,1,1,Güçlü İlişki
+Degerlendirme,Kullanici,Yapar,N,1,Güçlü İlişki
+Sistem_Log,Kullanici,İşler,N,1,Tanımlayıcı İlişki (Zayıf)
+Kampanya,Kullanici,Oluşturur,N,1,Güçlü İlişki

@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaz Ayağı Veritabanı Diyagramı — proje_db (25 Tablo)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0f0f1a;
+      font-family: 'Inter', sans-serif;
+      color: #e2e8f0;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    body.light-mode {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    body.light-mode #toolbar {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom-color: #cbd5e1;
+    }
+
+    body.light-mode #toolbar h1 {
+      color: #0f172a;
+    }
+
+    body.light-mode .table-card {
+      background: #fff;
+      border-color: #e2e8f0;
+      color: #0f172a;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode .card-header {
+      color: #1e293b;
+      border-bottom-color: #e2e8f0;
+    }
+
+    body.light-mode .col-row {
+      color: #334155;
+      border-bottom-color: #f1f5f9;
+    }
+
+    body.light-mode .col-row.pk {
+      color: #d97706;
+    }
+
+    body.light-mode .col-row.fk {
+      color: #0369a1;
+    }
+
+    body.light-mode .badge {
+      background: transparent;
+    }
+
+    body.light-mode .badge.pk {
+      color: #d97706;
+    }
+
+    body.light-mode .badge.fk {
+      color: #0369a1;
+    }
+
+    body.light-mode .btn {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    body.light-mode .btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    body.light-mode svg line,
+    body.light-mode svg path {
+      stroke: #94a3b8 !important;
+    }
+
+    body.light-mode .crow-foot {
+      stroke: #94a3b8 !important;
+    }
+
+    #toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 20px;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+
+    #toolbar h1 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f1f5f9;
+      width: auto;
+      min-width: 250px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+    }
+
+    #search-box {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.2);
+      color: #cbd5e1;
+      font-size: 12px;
+      outline: none;
+      width: 160px;
+      transition: all 0.2s;
+    }
+
+    #search-box:focus {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    body.light-mode #search-box {
+      background: rgba(0, 0, 0, 0.05);
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    #canvas-wrap {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      cursor: grab;
+    }
+
+    #canvas-wrap.grabbing {
+      cursor: grabbing;
+    }
+
+    #svg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      transform-origin: 0 0;
+    }
+
+    #board {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+    }
+
+    .table-card {
+      position: absolute;
+      width: 180px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      background: rgba(20, 20, 36, 0.92);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: box-shadow 0.2s, border-color 0.2s, opacity 0.3s;
+      cursor: move;
+      user-select: none;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+
+    .table-card:hover {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      z-index: 50 !important;
+    }
+
+    .table-card.faded {
+      opacity: 0.15;
+    }
+
+    .card-header {
+      padding: 8px 10px;
+      border-radius: 9px 9px 0 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f1f5f9;
+    }
+
+    .card-body {
+      padding: 4px 0;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .col-row {
+      padding: 3px 10px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: #94a3b8;
+    }
+
+    .col-row:last-child {
+      border-bottom: none;
+    }
+
+    .col-row.pk {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+
+    .col-row.fk {
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    .badge {
+      font-size: 8px;
+      font-weight: 700;
+      padding: 1px 3px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+
+    .badge.pk {
+      background: rgba(251, 191, 36, 0.2);
+      color: #fbbf24;
+    }
+
+    .badge.fk {
+      background: rgba(96, 165, 250, 0.2);
+      color: #60a5fa;
+    }
+
+    svg line,
+    svg path,
+    svg polyline {
+      transition: opacity 0.3s, stroke-width 0.3s;
+    }
+
+    .crow-foot {
+      stroke: #94a3b8;
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .relationship-line {
+      stroke: #64748b;
+      stroke-width: 1.5;
+      fill: none;
+      opacity: 0.6;
+    }
+
+    .legend {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      background: rgba(15, 15, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 11px;
+      color: #94a3b8;
+      z-index: 999;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .legend-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    body.light-mode .legend {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: #cbd5e1;
+      color: #64748b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="toolbar">
+    <h1>🗄️ Kaz Ayağı Diyagramı — proje_db (25 Tablo)</h1>
+    <div class="toolbar-actions">
+      <input type="text" id="search-box" placeholder="Tablo ara...">
+      <button class="btn" onclick="document.body.classList.toggle('light-mode')" title="Açık/Koyu Tema">🌓</button>
+      <button class="btn" onclick="exportSVG()" title="SVG Olarak İndir">📸 İndir</button>
+      <a href="chen_diagram.html" class="btn" style="text-decoration:none; background: rgba(59,130,246,0.15); color: #93c5fd; border-color: rgba(59,130,246,0.3);">🔄 Chen</a>
+      <a href="kazayagi_diyagram.html" class="btn" style="text-decoration:none; background: rgba(16,185,129,0.15); color: #34d399; border-color: rgba(16,185,129,0.3);">🦶 Kaz Ayağı</a>
+      <button class="btn" onclick="resetView()">⌂ Sıfırla</button>
+      <button class="btn" onclick="autoLayout()">⚡ Düzen</button>
+    </div>
+  </div>
+
+  <div id="canvas-wrap">
+    <svg id="svg-layer" width="8000" height="6000">
+      <defs>
+        <marker id="crow-foot-one" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <circle cx="5" cy="5" r="2" fill="#94a3b8" />
+        </marker>
+        <marker id="crow-foot-many" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <polyline points="0,0 10,5 0,10" fill="none" stroke="#94a3b8" stroke-width="1.5" />
+        </marker>
+      </defs>
+      <g id="lines"></g>
+    </svg>
+    <div id="board"></div>
+  </div>
+
+  <div class="legend" id="legend">
+    <div class="legend-item"><div class="legend-dot" style="background: #fbbf24;"></div> <strong>PK</strong> — Birincil Anahtar</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #60a5fa;"></div> <strong>FK</strong> — Yabancı Anahtar</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #34d399;"></div> <strong>○—</strong> Bir (1)</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #f472b6;"></div> <strong>◄—</strong> Çok (N)</div>
+  </div>
+
+  <script>
+    // ============================================================
+    // 25 TABLO YAPISI (SQL Schema'dan)
+    // ============================================================
+    const TABLES = [
+      { id: 'Rol', cols: [{ n: 'rol_ID', pk: true }, { n: 'rol_Ad' }, { n: 'rol_Aciklama' }] },
+      { id: 'Kullanici', cols: [{ n: 'kul_ID', pk: true }, { n: 'kul_RolID', fk: 'Rol' }, { n: 'kul_Ad' }, { n: 'kul_Soyad' }, { n: 'kul_Email' }, { n: 'kul_Telefon' }] },
+      { id: 'Adres', cols: [{ n: 'adr_ID', pk: true }, { n: 'adr_KulID', fk: 'Kullanici' }, { n: 'adr_IlAd' }, { n: 'adr_IlceAd' }, { n: 'adr_Mahalle' }] },
+      { id: 'Musteri', cols: [{ n: 'mtr_ID', pk: true }, { n: 'mtr_KulID', fk: 'Kullanici' }, { n: 'mtr_FirmaAd' }, { n: 'mtr_KrediLimit' }] },
+      { id: 'Bildirim', cols: [{ n: 'bld_ID', pk: true }, { n: 'bld_KulID', fk: 'Kullanici' }, { n: 'bld_Baslik' }, { n: 'bld_Mesaj' }, { n: 'bld_Tur' }] },
+      { id: 'Sistem_Log', cols: [{ n: 'slg_ID', pk: true }, { n: 'slg_KulID', fk: 'Kullanici' }, { n: 'slg_Eylem' }, { n: 'slg_TabloAd' }] },
+      { id: 'Surucu_Profil', cols: [{ n: 'surp_ID', pk: true }, { n: 'surp_KulID', fk: 'Kullanici' }, { n: 'surp_LisansNo' }, { n: 'surp_Durum' }] },
+      { id: 'Arac', cols: [{ n: 'arc_ID', pk: true }, { n: 'arc_SurpID', fk: 'Surucu_Profil' }, { n: 'arc_Plaka' }, { n: 'arc_Marka' }, { n: 'arc_KapasiteKg' }] },
+      { id: 'Guzergah', cols: [{ n: 'guz_ID', pk: true }, { n: 'guz_BaslangicAdr', fk: 'Adres' }, { n: 'guz_BitisAdr', fk: 'Adres' }, { n: 'guz_TahminiKm' }] },
+      { id: 'Surucu_Rota', cols: [{ n: 'srot_ID', pk: true }, { n: 'srot_SurpID', fk: 'Surucu_Profil' }, { n: 'srot_GuzID', fk: 'Guzergah' }, { n: 'srot_ArcID', fk: 'Arac' }, { n: 'srot_Durum' }] },
+      { id: 'Konum_Takip', cols: [{ n: 'ktk_ID', pk: true }, { n: 'ktk_SrotID', fk: 'Surucu_Rota' }, { n: 'ktk_Enlem' }, { n: 'ktk_Boylam' }, { n: 'ktk_Hiz' }] },
+      { id: 'Urun_Kategori', cols: [{ n: 'ukat_ID', pk: true }, { n: 'ukat_Ad' }, { n: 'ukat_UstKatID', fk: 'Urun_Kategori' }] },
+      { id: 'Urun', cols: [{ n: 'urn_ID', pk: true }, { n: 'urn_KatID', fk: 'Urun_Kategori' }, { n: 'urn_Ad' }, { n: 'urn_BirimFiyat' }, { n: 'urn_StokAdet' }] },
+      { id: 'Varil', cols: [{ n: 'var_ID', pk: true }, { n: 'var_UrnID', fk: 'Urun' }, { n: 'var_SeriNo' }, { n: 'var_Kapasite' }, { n: 'var_Durum' }] },
+      { id: 'Depo', cols: [{ n: 'dep_ID', pk: true }, { n: 'dep_AdrID', fk: 'Adres' }, { n: 'dep_Ad' }, { n: 'dep_KapaLitre' }] },
+      { id: 'Depo_Stok', cols: [{ n: 'dst_ID', pk: true }, { n: 'dst_DepID', fk: 'Depo' }, { n: 'dst_VarID', fk: 'Varil' }, { n: 'dst_GirisTarih' }] },
+      { id: 'Siparis', cols: [{ n: 'sip_ID', pk: true }, { n: 'sip_MtrID', fk: 'Musteri' }, { n: 'sip_TesAdrID', fk: 'Adres' }, { n: 'sip_Durum' }, { n: 'sip_OlusturmaTarih' }] },
+      { id: 'Siparis_Kalem', cols: [{ n: 'skap_ID', pk: true }, { n: 'skap_SipID', fk: 'Siparis' }, { n: 'skap_UrnID', fk: 'Urun' }, { n: 'skap_Miktar' }, { n: 'skap_BirimFiyat' }] },
+      { id: 'Varil_Takas', cols: [{ n: 'vtks_ID', pk: true }, { n: 'vtks_SrotID', fk: 'Surucu_Rota' }, { n: 'vtks_SipID', fk: 'Siparis' }, { n: 'vtks_TeslimVarID', fk: 'Varil' }, { n: 'vtks_GeriVarID', fk: 'Varil' }] },
+      { id: 'Fatura', cols: [{ n: 'fat_ID', pk: true }, { n: 'fat_SipID', fk: 'Siparis' }, { n: 'fat_FaturaNo' }, { n: 'fat_ToplamTutar' }, { n: 'fat_OdemeDurum' }] },
+      { id: 'Odeme', cols: [{ n: 'ode_ID', pk: true }, { n: 'ode_FatID', fk: 'Fatura' }, { n: 'ode_KulID', fk: 'Kullanici' }, { n: 'ode_Tutar' }, { n: 'ode_Yontem' }] },
+      { id: 'Destek_Talep', cols: [{ n: 'dtp_ID', pk: true }, { n: 'dtp_KulID', fk: 'Kullanici' }, { n: 'dtp_SipID', fk: 'Siparis' }, { n: 'dtp_Konu' }, { n: 'dtp_Durum' }] },
+      { id: 'Destek_Mesaj', cols: [{ n: 'dmsg_ID', pk: true }, { n: 'dmsg_DtpID', fk: 'Destek_Talep' }, { n: 'dmsg_GonderenID', fk: 'Kullanici' }, { n: 'dmsg_Mesaj' }] },
+      { id: 'Degerlendirme', cols: [{ n: 'dgl_ID', pk: true }, { n: 'dgl_SipID', fk: 'Siparis' }, { n: 'dgl_KulID', fk: 'Kullanici' }, { n: 'dgl_Puan' }, { n: 'dgl_Yorum' }] },
+      { id: 'Kampanya', cols: [{ n: 'kmp_ID', pk: true }, { n: 'kmp_OlusturanID', fk: 'Kullanici' }, { n: 'kmp_Ad' }, { n: 'kmp_IndirimOran' }, { n: 'kmp_AktifMi' }] },
+    ];
+
+    // ============================================================
+    // LAYOUT (Tabloların Konumları)
+    // ============================================================
+    const LAYOUT = {
+      Rol: { x: 400, y: 400 },
+      Kullanici: { x: 1200, y: 400 },
+      Adres: { x: 1200, y: 1200 },
+      Musteri: { x: 1800, y: 400 },
+      Bildirim: { x: 400, y: 1200 },
+      Sistem_Log: { x: 400, y: 1800 },
+      Surucu_Profil: { x: 2600, y: 400 },
+      Arac: { x: 3200, y: 400 },
+      Guzergah: { x: 1800, y: 1200 },
+      Surucu_Rota: { x: 2600, y: 1200 },
+      Konum_Takip: { x: 3200, y: 1200 },
+      Urun_Kategori: { x: 4000, y: 400 },
+      Urun: { x: 4600, y: 400 },
+      Varil: { x: 4600, y: 1200 },
+      Depo: { x: 4000, y: 1200 },
+      Depo_Stok: { x: 4000, y: 1800 },
+      Siparis: { x: 5400, y: 400 },
+      Siparis_Kalem: { x: 5400, y: 1200 },
+      Varil_Takas: { x: 2600, y: 1800 },
+      Fatura: { x: 6200, y: 400 },
+      Odeme: { x: 6200, y: 1200 },
+      Destek_Talep: { x: 6800, y: 400 },
+      Destek_Mesaj: { x: 6800, y: 1200 },
+      Degerlendirme: { x: 7200, y: 400 },
+      Kampanya: { x: 1200, y: 1800 },
+    };
+
+    let cardPositions = {};
+    let scale = 0.12, panX = 100, panY = 50;
+    let isPanning = false, startX, startY;
+
+    const board = document.getElementById('board');
+    const svgLayer = document.getElementById('svg-layer');
+    const linesG = document.getElementById('lines');
+    const searchBox = document.getElementById('search-box');
+
+    function buildCards() {
+      TABLES.forEach(table => {
+        const pos = LAYOUT[table.id];
+        cardPositions[table.id] = { x: pos.x, y: pos.y };
+
+        const card = document.createElement('div');
+        card.className = 'table-card';
+        card.id = 'card-' + table.id;
+        card.style.left = pos.x + 'px';
+        card.style.top = pos.y + 'px';
+
+        let headerHTML = `<div class="card-header">${table.id}</div>`;
+        let bodyHTML = '<div class="card-body">';
+        table.cols.forEach(col => {
+          let rowClass = col.pk ? 'pk' : col.fk ? 'fk' : '';
+          let badge = col.pk ? '<span class="badge pk">PK</span>' : col.fk ? '<span class="badge fk">FK</span>' : '';
+          bodyHTML += `<div class="col-row ${rowClass}">${badge}${col.n}</div>`;
+        });
+        bodyHTML += '</div>';
+
+        card.innerHTML = headerHTML + bodyHTML;
+
+        // Dragging
+        let dragging = false, dx, dy;
+        card.addEventListener('mousedown', e => {
+          if (e.button !== 0) return;
+          e.stopPropagation();
+          dragging = true;
+          dx = (e.clientX - panX) / scale - cardPositions[table.id].x;
+          dy = (e.clientY - panY) / scale - cardPositions[table.id].y;
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+        });
+
+        function onMove(e) {
+          if (!dragging) return;
+          cardPositions[table.id].x = (e.clientX - panX) / scale - dx;
+          cardPositions[table.id].y = (e.clientY - panY) / scale - dy;
+          card.style.left = cardPositions[table.id].x + 'px';
+          card.style.top = cardPositions[table.id].y + 'px';
+          drawConnections();
+        }
+
+        function onUp() {
+          dragging = false;
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup', onUp);
+        }
+
+        board.appendChild(card);
+      });
+    }
+
+    function drawConnections() {
+      linesG.innerHTML = '';
+      
+      TABLES.forEach(table => {
+        table.cols.forEach(col => {
+          if (col.fk) {
+            const targetTable = col.fk;
+            const fromPos = cardPositions[table.id];
+            const toPos = cardPositions[targetTable];
+
+            if (fromPos && toPos) {
+              const fromX = fromPos.x + 90; // Sağ kenar
+              const fromY = fromPos.y + 90; // Alt kenar
+              const toX = toPos.x + 90;
+              const toY = toPos.y;
+
+              const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+              const ctrlX = (fromX + toX) / 2;
+              const ctrlY = (fromY + toY) / 2;
+
+              line.setAttribute('d', `M ${fromX} ${fromY} Q ${ctrlX} ${ctrlY} ${toX} ${toY}`);
+              line.setAttribute('class', 'relationship-line');
+              line.setAttribute('marker-end', 'url(#crow-foot-many)');
+              linesG.appendChild(line);
+            }
+          }
+        });
+      });
+    }
+
+    function updateView() {
+      board.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      svgLayer.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      drawConnections();
+    }
+
+    // ============================================================
+    // PAN & ZOOM (Fare Hareketi)
+    // ============================================================
+    const canvasWrap = document.getElementById('canvas-wrap');
+    canvasWrap.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      if (e.target.closest('.table-card')) return;
+      isPanning = true;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+      canvasWrap.classList.add('grabbing');
+    });
+
+    document.addEventListener('mousemove', e => {
+      if (!isPanning) return;
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      updateView();
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!isPanning) return;
+      isPanning = false;
+      canvasWrap.classList.remove('grabbing');
+    });
+
+    canvasWrap.addEventListener('wheel', e => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? 0.9 : 1.1;
+      scale *= delta;
+      scale = Math.max(0.05, Math.min(1.5, scale));
+      updateView();
+    });
+
+    // ============================================================
+    // ARAMA FONKSİYONU
+    // ============================================================
+    searchBox.addEventListener('input', e => {
+      const query = e.target.value.toLowerCase();
+      TABLES.forEach(table => {
+        const card = document.getElementById('card-' + table.id);
+        const match = table.id.toLowerCase().includes(query) || 
+                     table.cols.some(col => col.n.toLowerCase().includes(query));
+        card.classList.toggle('faded', !match && query.length > 0);
+      });
+    });
+
+    // ============================================================
+    // YARDIMCI FONKSİYONLAR
+    // ============================================================
+    function resetView() {
+      scale = 0.12;
+      panX = 100;
+      panY = 50;
+      updateView();
+    }
+
+    function autoLayout() {
+      let maxX = 0;
+      Object.values(cardPositions).forEach(pos => {
+        if (pos.x > maxX) maxX = pos.x;
+      });
+      panX = Math.max(100, 400 - (maxX + 300) * scale);
+      updateView();
+    }
+
+    function exportSVG() {
+      const svg = svgLayer.cloneNode(true);
+      TABLES.forEach(table => {
+        const card = document.getElementById('card-' + table.id).cloneNode(true);
+        card.style.position = 'absolute';
+        svg.appendChild(card);
+      });
+      const blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'veritabani_sema.svg';
+      a.click();
+    }
+
+    // ============================================================
+    // İNİTİYALİZASYON
+    // ============================================================
+    buildCards();
+    updateView();
+  </script>
+
+</body>
+</html>

@@ -1,57 +1,97 @@
-# 🗄️ Lojistik Veritabanı Şema Görselleştirici
+# 🗄️ Lojistik Veritabanı Şema Tasarımı
 
-👉 **Canlı Önizleme (Kaz Ayağı Diyagramı):** [https://resitasrav.github.io/diyagram.html](https://resitasrav.github.io/diyagram.html)
-👉 **Canlı Önizleme (Chen Notasyonu):** [https://resitasrav.github.io/chen_diagram.html](https://resitasrav.github.io/chen_diagram.html)
+> **Bilgisayar Mühendisliği — 2. Sınıf / Proje 1 — Veritabanı Tasarım Ödevi**
 
-Bu proje, 25 tablodan oluşan kapsamlı bir lojistik veritabanının yapısını, ilişkilerini ve özniteliklerini görselleştirmek için geliştirilmiş **tamamen interaktif** ve **akademik düzeyde** bir web uygulamasıdır. Herhangi bir sunucuya veya dış bağımlılığa (veritabanı bağlantısına) ihtiyaç duymadan doğrudan tarayıcı üzerinden çalışır.
+## 📌 Proje Bilgileri
 
-## 🚀 Öne Çıkan Özellikler
+| Alan | Değer |
+|---|---|
+| **Ders** | Veritabanı Yönetim Sistemleri |
+| **Proje** | Proje 1 — Veritabanı Tasarımı |
+| **Konu** | Lojistik & Sipariş Yönetim Sistemi |
+| **Tablo Sayısı** | 25 |
+| **Diyagram Türleri** | Chen Notasyonu, Kaz Ayağı (Crow's Foot), Kaz Ayağı Şeması |
 
-### 1. Çift Modlu Görselleştirme
-Proje, veritabanı şemasını iki farklı endüstri standardında inceleme fırsatı sunar:
-*   **Kaz Ayağı (Crow's Foot) Diyagramı (`diyagram.html`)**: Tabloların fiziksel yapısını, sütun detaylarını (PK/FK) ve N:1 ilişkileri modern bir "kart" tasarımıyla gösterir. Kişi/sorumluluk bazlı renklendirme ve filtreleme içerir.
-*   **Chen Notasyonu (`chen_diagram.html`)**: Akademik ER modellemesi için geliştirilmiştir. Zayıf varlıklar (Weak Entities), türetilmiş öznitelikler (Derived Attributes), çok değerli öznitelikler (Multi-valued Attributes) ve tanımlayıcı ilişkileri (Identifying Relationships) uluslararası standartlardaki geometrik şekillerle çizer.
+## 👥 Ekip Üyeleri ve Sorumluluk Alanları
 
-### 2. Canlı Arama ve Otomatik Odaklanma (Search & Focus)
-Üst menüdeki arama çubuğuna bir tablo veya sütun adı yazdığınızda, sistem eşleşmeyen alanları karartır ve eşleşen tabloyu neon sarısı bir ışıkla vurgular. Ardından kamera pürüzsüz bir animasyonla aranan tablonun üzerine odaklanır.
+| Üye | Modül | Yönettiği Tablolar |
+|---|---|---|
+| **Özgür KOTBAŞ** | Kullanıcı & Kimlik | Rol, Kullanıcı, Adres, Müşteri, Bildirim, Sistem_Log |
+| **Bedirhan GÖK** | Sürücü & Lojistik | Sürücü_Profil, Araç, Güzergah, Sürücü_Rota, Konum_Takip, Varil_Takas |
+| **Bilal DOĞRU** | Ürün & Depo | Ürün_Kategori, Ürün, Varil, Depo, Depo_Stok, Kampanya |
+| **Reşit ASRAV** | Sipariş & Fatura | Sipariş, Sipariş_Kalem, Fatura, Ödeme, Destek_Talep, Destek_Mesaj, Değerlendirme |
 
-### 3. Karanlık/Aydınlık Tema Desteği
-Göz yorgunluğunu önlemek ve sunum ortamına uyum sağlamak için her iki diyagramda da tek tuşla **Aydınlık/Karanlık Tema** geçişi yapılabilir.
+## 🔗 Canlı Önizleme
 
-### 4. HD SVG Dışa Aktarma (Export)
-Oluşturduğunuz şemanın kalitesi bozulmadan projelerinize veya sunumlarınıza ekleyebilmeniz için **"📸 İndir"** butonu bulunur. Bu buton, ekrandaki her şeyi (tema moduna uygun olarak) yüksek çözünürlüklü vektörel bir `.svg` dosyası haline getirip bilgisayarınıza kaydeder.
+| Görünüm | Bağlantı |
+|---|---|
+| Kaz Ayağı Diyagramı | [kazayagi_diyagram.html](https://resitasrav.github.io/kazayagi_diyagram.html) |
+| Chen Notasyonu | [chen_diagram.html](https://resitasrav.github.io/chen_diagram.html) |
+| Veritabanı Şeması | [veritabani_sema.html](https://resitasrav.github.io/veritabani_sema.html) |
 
-### 5. Anında SQL Kodu Üretimi
-Diyagram üzerinde gezinirken ilgilendiğiniz tablonun üzerine **çift tıkladığınızda**, o tablonun veritabanında nasıl oluşturulacağını gösteren `CREATE TABLE` SQL komutlarını içeren şık bir kod penceresi açılır. Birincil ve ikincil anahtarları otomatik olarak saptar.
+---
 
-### 6. İnteraktif İstatistik Paneli
-Chen diyagramı açıkken sol alt köşede, sistemin anlık bir özetini sunan istatistik paneli bulunur. Toplam tablo sayısı, ilişki tipleri ve öznitelik türlerini (PK, Türetilmiş vb.) dinamik olarak hesaplar.
+## 📂 Proje Yapısı
 
-### 7. Ekip ve Sorumluluk Alanı Yönetimi (Legend & Filtreleme)
-Veritabanı yapısı, sistemin modülerliğini ve proje dağılımını yansıtacak şekilde 4 ana gruba ayrılmış ve her biri projeyi geliştiren bir ekip üyesine atanmıştır:
-*   **Özgür KOTBAŞ (Kullanıcı & Kimlik):** Kullanıcı rolleri, adresler, müşteri profilleri, bildirimler ve sistem loglamaları.
-*   **Bedirhan GÖK (Sürücü & Lojistik):** Filo yönetimi, sürücü atamaları, güzergah takibi ve sahada gerçekleşen varil takas işlemleri.
-*   **Bilal DOĞRU (Ürün & Depo):** Ürün kataloğu, varil kapasite ve stok durumları, depo hareketleri ve pazarlama kampanyaları.
-*   **Reşit ASRAV (Sipariş & Fatura):** Sipariş ve kalem yönetimi, tahsilat, faturalandırma, destek talepleri ve değerlendirme süreçleri.
+```
+weritabanı şemaları/
+├── kazayagi_diyagram.html   ← Kaz Ayağı (Crow's Foot) — kişi bazlı renklendirme
+├── chen_diagram.html        ← Chen ER Diyagramı — akademik notasyon
+├── veritabani_sema.html     ← Kaz Ayağı Şeması — sade ilişki görünümü
+├── schema.sql               ← Tüm tabloların SQL CREATE komutları
+├── csv/
+│   ├── tablolar.csv         ← Tablo listesi
+│   ├── sutunlar.csv         ← Sütun detayları (PK/FK, tip)
+│   └── iliskiler.csv        ← Tablolar arası ilişkiler
+├── images/                  ← Ekip üyesi profil fotoğrafları
+├── drawio/                  ← draw.io diyagram dosyaları
+└── pdfs/                    ← Dışa aktarılmış PDF dokümanları
+```
 
-Diyagram üzerindeki interaktif *Legend* bölümünden istenilen kişilerin filtrelemesi yapılarak yalnızca o ekibe ait tablolar aydınlatılabilir. Ek olarak, "Bilgi" paneli ile kişilerin sistemin bütünüyle nasıl bağlantı kurduğu detaylı olarak incelenebilir.
+## 🚀 Özellikler
+
+### 1. Üç Farklı Diyagram Görünümü
+Proje, veritabanı şemasını üç farklı standartta inceleme imkânı sunar. Her sayfanın üst menüsündeki butonlarla görünümler arası geçiş yapılabilir.
+
+*   **Kaz Ayağı Diyagramı (`kazayagi_diyagram.html`)** — Tabloların fiziksel yapısını, sütun detaylarını (PK/FK) ve N:1 ilişkileri kart tasarımıyla gösterir. Kişi bazlı renklendirme ve filtreleme içerir.
+*   **Chen Notasyonu (`chen_diagram.html`)** — Akademik ER modellemesi. Zayıf varlıklar, türetilmiş ve çok değerli öznitelikler ile tanımlayıcı ilişkileri geometrik şekillerle çizer.
+*   **Veritabanı Şeması (`veritabani_sema.html`)** — Tüm tabloları ve FK ilişkilerini sade bir düzende gösteren hafif görünüm.
+
+### 2. Canlı Arama ve Otomatik Odaklanma
+Arama çubuğuna tablo veya sütun adı yazıldığında eşleşmeyen alanlar karartılır, bulunan tablo vurgulanır ve kamera otomatik olarak üzerine kayar.
+
+### 3. Karanlık / Aydınlık Tema
+Her üç diyagramda da tek tuşla tema geçişi yapılabilir.
+
+### 4. HD SVG Dışa Aktarma
+**"📸 İndir"** butonu ile diyagram yüksek çözünürlüklü vektörel `.svg` dosyası olarak kaydedilir.
+
+### 5. SQL Kodu Üretimi
+Tabloya çift tıklandığında `CREATE TABLE` SQL komutlarını gösteren bir pencere açılır.
+
+### 6. İstatistik Paneli
+Chen diyagramında sol alt köşede toplam tablo, ilişki ve öznitelik istatistikleri dinamik olarak gösterilir.
+
+### 7. Ekip Filtreleme ve Bilgi Paneli
+Kaz Ayağı diyagramındaki Legend bölümünden kişi bazlı filtreleme yapılabilir. "Bilgi" butonuyla her ekip üyesinin sorumluluk alanı detaylı incelenir.
 
 ---
 
 ## 💻 Kurulum ve Kullanım
 
-Hiçbir kurulum gerektirmez! 
+Hiçbir kurulum gerektirmez. HTML dosyalarından birini tarayıcıda açmak yeterlidir.
 
-1. Klasördeki `diyagram.html` veya `chen_diagram.html` dosyalarından birine çift tıklayarak modern bir tarayıcıda (Chrome, Edge, Safari vb.) açın.
-2. **Kamerayı Hareket Ettirmek İçin:** Arka planda boş bir alana tıklayıp sürükleyin.
-3. **Yakınlaşmak / Uzaklaşmak İçin:** Farenizin tekerleğini (scroll) kullanın.
-4. **Tabloları Taşımak İçin:** İstediğiniz tablonun veya elipsin üzerine tıklayıp sürükleyerek diyagramı kendi isteğinize göre düzenleyebilirsiniz.
-5. Menüdeki butonlar aracılığıyla şemalar arası geçiş yapabilir veya dağınık tabloları tek tuşla toplayabilirsiniz.
+| İşlem | Nasıl |
+|---|---|
+| Kamerayı kaydır | Boş alana tıkla + sürükle |
+| Yakınlaş / Uzaklaş | Fare tekerleği (scroll) |
+| Tablo taşı | Tabloya tıkla + sürükle |
+| SQL kodunu gör | Tabloya çift tıkla |
+| Görünüm değiştir | Üst menüdeki geçiş butonları |
 
 ## 🛠️ Teknik Altyapı
-*   **HTML5 & CSS3:** Modern ve akıcı arayüz tasarımı.
-*   **Vanilla JavaScript:** Veri manipülasyonu, SVG çizimleri ve fiziksel pan/zoom hesaplamaları için hiçbir harici kütüphane (ör. jQuery, React) kullanılmamıştır.
-*   **SVG Rendering:** Çizgiler ve vektörel geometriler anlık olarak DOM üzerinde matematiksel olarak hesaplanıp çizilir.
 
----
-*Bu proje, veritabanı mimarisini anlamak, sunmak ve modifiye etmek isteyen herkes için mükemmel bir yardımcı araçtır.*
+*   **HTML5 & CSS3** — Responsive ve modern arayüz tasarımı
+*   **Vanilla JavaScript** — Hiçbir harici kütüphane kullanılmamıştır
+*   **SVG Rendering** — Çizgiler ve geometriler DOM üzerinde matematiksel olarak hesaplanır
+*   **CSV Veri Çıktıları** — Tablo, sütun ve ilişki verileri CSV formatında dışa aktarılmıştır

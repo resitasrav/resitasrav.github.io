@@ -1,0 +1,175 @@
+<mxfile host="Electron">
+  <diagram name="Sayfa-1" id="5h3MmIznoKWOEHfvw8ka">
+    <mxGraphModel dx="1256" dy="595" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="%name%" name="kullanici" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-1">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="20" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="rol" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-2">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="sahip_olur" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-3">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="musteri" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-4">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="siparis" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-5">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="verir" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-6">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="siparis_kalem" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-7">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="icerir" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-8">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="urun" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-9">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="fatura" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-10">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="kesilir" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-11">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="odeme" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-12">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="gerceklesir" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-13">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="adres" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-14">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="tanimlar" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-15">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="depo" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-16">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="surucu_profil" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-17">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="arac" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-18">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="kullanir" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-19">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="guzergah" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-20">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="surucu_rota" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-21">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="izler" shape="rhombus" column="relation" fstyle="0" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-22">
+          <mxCell parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=0;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="varil" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-23">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="varil_takas" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-24">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="destek_talep" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-25">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="destek_mesaj" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-26">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="kampanya" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-27">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="bildirim" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-28">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="sistem_log" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-29">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="konum_takip" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-30">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="degerlendirme" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-31">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="urun_kategori" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-32">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="%name%" name="depo_stok" shape="rectangle" column="entity" fstyle="1" placeholders="1" id="8QT8P1TeB2RDDrf-XwnM-33">
+          <mxCell parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;fontStyle=1;" vertex="1">
+            <mxGeometry height="NaN" width="NaN" x="20" y="NaN" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

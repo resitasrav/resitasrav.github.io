@@ -1,0 +1,26 @@
+tablo_adi,tablo_turu,aciklama
+Rol,Güçlü Varlık,Kullanıcı rollerini tanımlar
+Kullanici,Güçlü Varlık,Sisteme kayıtlı tüm kullanıcılar
+Adres,Güçlü Varlık,Kullanıcı ve depo adres bilgileri
+Musteri,Güçlü Varlık,Müşteri profil ve kredi bilgileri
+Bildirim,Zayıf Varlık,Kullanıcıya gönderilen bildirimler
+Sistem_Log,Zayıf Varlık,Sistem eylem kayıtları
+Surucu_Profil,Güçlü Varlık,Sürücü lisans ve durum bilgileri
+Arac,Güçlü Varlık,Sürücülere atanan araçlar
+Guzergah,Güçlü Varlık,Teslimat güzergahları
+Surucu_Rota,Güçlü Varlık,Sürücü-güzergah-araç ataması
+Konum_Takip,Zayıf Varlık,Rota bazlı anlık konum verileri
+Varil_Takas,Zayıf Varlık,Sipariş kapsamında varil takas kayıtları
+Urun_Kategori,Güçlü Varlık,Hiyerarşik ürün kategorileri
+Urun,Güçlü Varlık,Ürün bilgileri ve stok
+Varil,Güçlü Varlık,Seri numaralı ürün varilleri
+Depo,Güçlü Varlık,Depolama tesisleri
+Depo_Stok,Zayıf Varlık,Depo içi varil stok kayıtları
+Kampanya,Güçlü Varlık,İndirim kampanyaları
+Siparis,Güçlü Varlık,Müşteri siparişleri
+Siparis_Kalem,Zayıf Varlık,Sipariş satır kalemleri
+Fatura,Güçlü Varlık,Sipariş faturaları
+Odeme,Güçlü Varlık,Fatura ödemeleri
+Destek_Talep,Güçlü Varlık,Müşteri destek talepleri
+Destek_Mesaj,Zayıf Varlık,Destek talebi mesajları
+Degerlendirme,Güçlü Varlık,Sipariş değerlendirmeleri
