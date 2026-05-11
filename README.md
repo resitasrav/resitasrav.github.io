@@ -25,7 +25,7 @@
 
 | Görünüm | Bağlantı |
 |---|---|
-| Kaz Ayağı Diyagramı | [kazayagi_diyagram.html](https://resitasrav.github.io/kazayagi_diyagram.html) |
+| Kaz Ayağı Diyagramı | [diyagram.html](https://resitasrav.github.io/diyagram.html) |
 | Chen Notasyonu | [chen_diagram.html](https://resitasrav.github.io/chen_diagram.html) |
 | Veritabanı Şeması | [veritabani_sema.html](https://resitasrav.github.io/veritabani_sema.html) |
 
@@ -53,7 +53,7 @@ weritabanı şemaları/
 ### 1. Üç Farklı Diyagram Görünümü
 Proje, veritabanı şemasını üç farklı standartta inceleme imkânı sunar. Her sayfanın üst menüsündeki butonlarla görünümler arası geçiş yapılabilir.
 
-*   **Kaz Ayağı Diyagramı (`kazayagi_diyagram.html`)** — Tabloların fiziksel yapısını, sütun detaylarını (PK/FK) ve N:1 ilişkileri kart tasarımıyla gösterir. Kişi bazlı renklendirme ve filtreleme içerir.
+*   **Kaz Ayağı Diyagramı (`diyagram.html`)** — Tabloların fiziksel yapısını, sütun detaylarını (PK/FK) ve N:1 ilişkileri kart tasarımıyla gösterir. Kişi bazlı renklendirme ve filtreleme içerir.
 *   **Chen Notasyonu (`chen_diagram.html`)** — Akademik ER modellemesi. Zayıf varlıklar, türetilmiş ve çok değerli öznitelikler ile tanımlayıcı ilişkileri geometrik şekillerle çizer.
 *   **Veritabanı Şeması (`veritabani_sema.html`)** — Tüm tabloları ve FK ilişkilerini sade bir düzende gösteren hafif görünüm.
 
